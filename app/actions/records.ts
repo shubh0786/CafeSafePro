@@ -2,7 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import { RecordType } from '@prisma/client'
+import { RecordType, ComplianceStatus } from '@prisma/client'
 
 interface CreateRecordInput {
   storeId: string
@@ -83,7 +83,7 @@ export async function getRecordsByStore(storeId: string) {
 
 export async function updateRecordStatus(
   recordId: string,
-  status: string,
+  status: ComplianceStatus,
   userId: string
 ) {
   try {
