@@ -50,7 +50,7 @@ interface RecordDetail {
   value: string
 }
 
-interface Record {
+interface ComplianceRecord {
   id: string
   type: string
   status: string
@@ -67,11 +67,11 @@ interface CorrectiveAction {
   status: string
   completedAt: Date | null
   assignee: { name: string | null }
-  record: Record
+  record: ComplianceRecord
 }
 
 interface RecordsContentProps {
-  records: Record[]
+  records: ComplianceRecord[]
   correctiveActions: CorrectiveAction[]
   storeId: string
   userId: string
