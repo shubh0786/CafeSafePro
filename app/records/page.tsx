@@ -46,7 +46,12 @@ export default async function RecordsPage() {
       status: { in: ['PENDING', 'OVERDUE'] },
     },
     include: {
-      record: true,
+      record: {
+        include: {
+          creator: { select: { name: true } },
+          details: true,
+        },
+      },
       assignee: { select: { name: true } },
     },
     orderBy: { dueDate: 'asc' },
