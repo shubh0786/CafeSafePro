@@ -3,7 +3,7 @@ services:
     name: cafesafepro
     runtime: node
     plan: free
-    buildCommand: rm -rf node_modules .next && npm ci && npx prisma generate && npx prisma migrate deploy && NODE_OPTIONS='--max-old-space-size=4096' npm run build
+    buildCommand: rm -rf node_modules .next && npm ci && npx prisma generate && npx prisma migrate resolve --applied 20260226000000_init && npx prisma migrate deploy && npx tsx prisma/seed.ts && NODE_OPTIONS='--max-old-space-size=4096' next build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
