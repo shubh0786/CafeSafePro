@@ -3,7 +3,7 @@ services:
     name: cafesafepro
     runtime: node
     plan: free
-    buildCommand: rm -rf node_modules .next && npm ci && npx prisma generate && npx prisma db push --skip-generate && npx tsx prisma/seed.ts && NODE_OPTIONS='--max-old-space-size=4096' next build
+    buildCommand: rm -rf node_modules .next && npm ci && npx prisma generate && npx prisma db push --skip-generate && NODE_OPTIONS='--max-old-space-size=4096' next build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
