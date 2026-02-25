@@ -29,42 +29,45 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  // Everyone
   {
     title: 'Dashboard',
     href: '/dashboard',
     icon: <LayoutDashboard className="h-5 w-5" />,
     roles: ['STAFF', 'MANAGER', 'OWNER', 'FRANCHISE_ADMIN'],
   },
+  // Operational — Staff & Manager only
   {
     title: 'Daily Tasks',
     href: '/tasks',
     icon: <ClipboardList className="h-5 w-5" />,
-    roles: ['STAFF', 'MANAGER', 'OWNER'],
+    roles: ['STAFF', 'MANAGER'],
   },
   {
     title: 'Temperature',
     href: '/temperature',
     icon: <Thermometer className="h-5 w-5" />,
-    roles: ['STAFF', 'MANAGER', 'OWNER'],
+    roles: ['STAFF', 'MANAGER'],
   },
   {
     title: 'Records',
     href: '/records',
     icon: <FileText className="h-5 w-5" />,
-    roles: ['STAFF', 'MANAGER', 'OWNER'],
+    roles: ['STAFF', 'MANAGER'],
   },
   {
     title: 'Stock & Traceability',
     href: '/stock',
     icon: <Package className="h-5 w-5" />,
-    roles: ['STAFF', 'MANAGER', 'OWNER'],
+    roles: ['STAFF', 'MANAGER'],
   },
   {
     title: 'Pest Control',
     href: '/pest-control',
     icon: <Bug className="h-5 w-5" />,
-    roles: ['STAFF', 'MANAGER', 'OWNER'],
+    roles: ['STAFF', 'MANAGER'],
   },
+  // Management — Manager & Owner
   {
     title: 'Equipment',
     href: '/equipment',
@@ -78,28 +81,30 @@ const navItems: NavItem[] = [
     roles: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'],
   },
   {
+    title: 'Reports',
+    href: '/reports',
+    icon: <FileText className="h-5 w-5" />,
+    roles: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'],
+  },
+  // Owner & Franchise Admin
+  {
     title: 'Stores',
     href: '/stores',
     icon: <Store className="h-5 w-5" />,
     roles: ['OWNER', 'FRANCHISE_ADMIN'],
   },
   {
-    title: 'Franchise',
-    href: '/franchise',
-    icon: <Building2 className="h-5 w-5" />,
-    roles: ['FRANCHISE_ADMIN'],
-  },
-  {
-    title: 'Reports',
-    href: '/reports',
-    icon: <FileText className="h-5 w-5" />,
-    roles: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'],
-  },
-  {
     title: 'Settings',
     href: '/settings',
     icon: <Settings className="h-5 w-5" />,
     roles: ['OWNER', 'FRANCHISE_ADMIN'],
+  },
+  // Franchise Admin only
+  {
+    title: 'Franchise',
+    href: '/franchise',
+    icon: <Building2 className="h-5 w-5" />,
+    roles: ['FRANCHISE_ADMIN'],
   },
 ]
 
