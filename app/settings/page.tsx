@@ -35,8 +35,8 @@ export default async function SettingsPage() {
           <Card className="border-0 shadow-soft">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center">
-                  <Store className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Store className="h-4 w-4 text-primary" />
                 </div>
                 Store Settings
               </CardTitle>
@@ -65,7 +65,7 @@ export default async function SettingsPage() {
                 <Label htmlFor="registration" className="text-sm font-medium text-foreground">MPI Registration Number</Label>
                 <Input id="registration" placeholder="FCP-XXXX-XXX" />
               </div>
-              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 rounded-xl">Save Store Settings</Button>
+              <Button className="w-full rounded-xl">Save Store Settings</Button>
             </CardContent>
           </Card>
 
@@ -119,7 +119,7 @@ export default async function SettingsPage() {
                 </div>
                 <Switch defaultChecked />
               </div>
-              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 rounded-xl">Save Notification Settings</Button>
+              <Button className="w-full rounded-xl">Save Notification Settings</Button>
             </CardContent>
           </Card>
 
@@ -159,7 +159,7 @@ export default async function SettingsPage() {
                 <Label htmlFor="sessionTimeout" className="text-sm font-medium text-foreground">Session Timeout (minutes)</Label>
                 <Input id="sessionTimeout" type="number" defaultValue={60} />
               </div>
-              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 rounded-xl">Save Security Settings</Button>
+              <Button className="w-full rounded-xl">Save Security Settings</Button>
             </CardContent>
           </Card>
 

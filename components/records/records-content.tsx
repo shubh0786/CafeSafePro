@@ -197,7 +197,7 @@ export function RecordsContent({
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+            <Button className="rounded-xl">
               <Plus className="mr-2 h-4 w-4" />
               New Record
             </Button>
@@ -263,7 +263,7 @@ export function RecordsContent({
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting || !selectedType} className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+                <Button type="submit" disabled={isSubmitting || !selectedType} className="rounded-xl">
                   {isSubmitting ? 'Creating...' : 'Create Record'}
                 </Button>
               </div>

@@ -37,8 +37,8 @@ export function Header({ onMenuClick }: HeaderProps) {
 
         {selectedStore && (
           <div className="flex items-center gap-2 sm:gap-2.5">
-            <div className="hidden sm:flex w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 items-center justify-center">
-              <Building2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <div className="hidden sm:flex w-7 h-7 rounded-lg bg-primary/10 items-center justify-center">
+              <Building2 className="h-3.5 w-3.5 text-primary" />
             </div>
             <span className="font-semibold text-sm text-foreground truncate max-w-[120px] sm:max-w-none">
               {selectedStore.name}
@@ -68,7 +68,7 @@ export function Header({ onMenuClick }: HeaderProps) {
             </Badge>
           </div>
           <Avatar className="h-8 w-8 sm:h-9 sm:w-9 shadow-soft">
-            <AvatarFallback className="bg-gradient-to-br from-emerald-400 to-emerald-600 text-white text-xs font-semibold">
+            <AvatarFallback className="bg-[hsl(222,47%,20%)] text-amber-400 text-xs font-semibold">
               {initials || 'U'}
             </AvatarFallback>
           </Avatar>

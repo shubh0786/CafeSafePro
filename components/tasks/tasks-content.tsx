@@ -184,7 +184,7 @@ export function TasksContent({
               <Button
                 onClick={handleCreateFromSchedule}
                 disabled={!selectedSchedule || isCreating}
-                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 rounded-xl"
+                className="w-full sm:w-auto rounded-xl"
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Create Tasks

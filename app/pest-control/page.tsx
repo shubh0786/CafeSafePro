@@ -25,7 +25,7 @@ export default async function PestControlPage() {
               Track pest control inspections and contractor visits
             </p>
           </div>
-          <Button asChild className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+          <Button asChild className="rounded-xl">
             <Link href="/records">
               <Plus className="mr-2 h-4 w-4" />
               New Inspection Record
@@ -131,7 +131,7 @@ export default async function PestControlPage() {
               View Inspection Records
             </Link>
           </Button>
-          <Button asChild className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+          <Button asChild className="rounded-xl">
             <Link href="/records?type=PEST_CONTROL&create=true">
               <Plus className="mr-2 h-4 w-4" />
               Record Inspection

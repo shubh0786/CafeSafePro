@@ -49,7 +49,7 @@ export default async function StaffPage() {
               Manage staff members and their access levels
             </p>
           </div>
-          <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+          <Button className="rounded-xl">
             <Plus className="mr-2 h-4 w-4" />
             Add Staff Member
           </Button>
@@ -141,7 +141,7 @@ export default async function StaffPage() {
                     className="flex items-center justify-between p-4 rounded-xl hover:bg-muted/50 transition-all duration-200"
                   >
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-sm shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-[hsl(222,47%,20%)] flex items-center justify-center shadow-sm shrink-0">
                         <span className="text-white font-semibold text-sm">
                           {storeUser.user.name
                             ?.split(' ')

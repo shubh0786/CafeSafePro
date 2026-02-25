@@ -108,7 +108,7 @@ export function ReportsContent({
             <FileText className="mr-2 h-4 w-4" />
             Print
           </Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl" onClick={handleExportReport}>
+          <Button className="rounded-xl" onClick={handleExportReport}>
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
@@ -172,8 +172,8 @@ export function ReportsContent({
                   {stats.thisMonthCompletedTasks} of {stats.thisMonthTasks} tasks
                 </p>
               </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <ClipboardList className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <ClipboardList className="h-5 w-5 text-primary" />
               </div>
             </div>
           </CardContent>

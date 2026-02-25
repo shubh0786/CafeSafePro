@@ -161,7 +161,7 @@ export function EquipmentContent({
         {canAddEquipment && (
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+              <Button className="rounded-xl">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Equipment
               </Button>
@@ -255,7 +255,7 @@ export function EquipmentContent({
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+                  <Button type="submit" disabled={isSubmitting} className="rounded-xl">
                     {isSubmitting ? 'Adding...' : 'Add Equipment'}
                   </Button>
                 </div>

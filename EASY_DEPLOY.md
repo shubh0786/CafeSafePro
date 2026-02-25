@@ -1,4 +1,4 @@
-# Easy Deployment Guide - CafeSafe Pro
+# Easy Deployment Guide - In Control
 
 ## Option 1: One-Click Deploy to Render (Recommended)
 

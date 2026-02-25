@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 echo ============================================
-echo  CafeSafe Pro - Deployment Helper
+echo  In Control - Deployment Helper
 echo ============================================
 echo.
 

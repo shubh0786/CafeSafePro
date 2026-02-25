@@ -1,4 +1,4 @@
-# Deploying CafeSafe Pro
+# Deploying In Control
 
 ## Recommended: Free Deployment for Testing
 

@@ -435,7 +435,7 @@ export function TemperatureContent({
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+              <Button type="submit" disabled={isSubmitting} className="rounded-xl">
                 {isSubmitting ? 'Recording...' : 'Record Temperature'}
               </Button>
             </div>

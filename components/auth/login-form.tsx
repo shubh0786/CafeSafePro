@@ -86,7 +86,7 @@ export function LoginForm() {
         </div>
         <Button
           type="submit"
-          className="w-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg transition-all duration-200 rounded-xl font-medium"
+          className="w-full h-11 bg-[hsl(222,47%,20%)] hover:bg-[hsl(222,47%,25%)] dark:bg-amber-500 dark:hover:bg-amber-600 dark:text-[hsl(222,47%,11%)] text-white shadow-md hover:shadow-lg transition-all duration-200 rounded-xl font-medium"
           disabled={isLoading}
         >
           {isLoading ? (

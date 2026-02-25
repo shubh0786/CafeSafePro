@@ -1,4 +1,4 @@
-# Deploy CafeSafe Pro Online - Step by Step
+# Deploy In Control Online - Step by Step
 
 ## Recommended: Render.com (Free Tier)
 
@@ -17,7 +17,7 @@ git init
 git add .
 
 # Commit
-git commit -m "Initial commit - CafeSafe Pro ready for deployment"
+git commit -m "Initial commit - In Control ready for deployment"
 ```
 
 Now go to GitHub:

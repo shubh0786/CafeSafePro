@@ -4,62 +4,62 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 224 71.4% 4.1%;
+    --background: 220 20% 97%;
+    --foreground: 222 47% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 160 84% 39%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 222 47% 20%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 160 60% 95%;
-    --accent-foreground: 160 84% 25%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 40 76% 55%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 160 84% 39%;
+    --ring: 222 47% 20%;
     --radius: 0.75rem;
     --success: 160 84% 39%;
-    --warning: 38 92% 50%;
+    --warning: 40 76% 55%;
     --danger: 0 84% 60%;
-    --info: 217 91% 60%;
-    --sidebar: 220 20% 97%;
-    --sidebar-foreground: 224 71.4% 4.1%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-accent: 160 60% 95%;
-    --sidebar-accent-foreground: 160 84% 25%;
+    --info: 222 47% 40%;
+    --sidebar: 222 47% 15%;
+    --sidebar-foreground: 220 20% 95%;
+    --sidebar-border: 222 40% 22%;
+    --sidebar-accent: 222 40% 22%;
+    --sidebar-accent-foreground: 40 76% 55%;
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 220 40% 8%;
-    --card-foreground: 210 20% 98%;
-    --popover: 220 40% 8%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 160 84% 45%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 160 40% 12%;
-    --accent-foreground: 160 84% 60%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 160 84% 45%;
-    --sidebar: 224 50% 5%;
-    --sidebar-foreground: 210 20% 98%;
-    --sidebar-border: 215 27.9% 16.9%;
-    --sidebar-accent: 160 40% 12%;
-    --sidebar-accent-foreground: 160 84% 60%;
+    --background: 222 47% 6%;
+    --foreground: 220 20% 95%;
+    --card: 222 40% 9%;
+    --card-foreground: 220 20% 95%;
+    --popover: 222 40% 9%;
+    --popover-foreground: 220 20% 95%;
+    --primary: 40 76% 55%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 222 30% 15%;
+    --secondary-foreground: 220 20% 95%;
+    --muted: 222 30% 15%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 222 40% 18%;
+    --accent-foreground: 40 76% 55%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 220 20% 95%;
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 40 76% 55%;
+    --sidebar: 222 47% 5%;
+    --sidebar-foreground: 220 20% 90%;
+    --sidebar-border: 222 30% 15%;
+    --sidebar-accent: 222 30% 12%;
+    --sidebar-accent-foreground: 40 76% 55%;
   }
 }
 
@@ -98,14 +98,14 @@
 }
 
 .animated-gradient {
-  background: linear-gradient(-45deg, #059669, #10b981, #0ea5e9, #6366f1, #059669);
+  background: linear-gradient(-45deg, #1e2a4a, #2d3a5c, #1a2744, #2c3e6b, #1e2a4a);
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
 }
 
 /* Glassmorphism - theme aware */
 .glass {
-  @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-white/30 dark:border-gray-700/30;
+  @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30;
 }
 
 .glass-subtle {
@@ -114,7 +114,7 @@
 
 /* Dot pattern - theme aware */
 .dot-pattern {
-  background-image: radial-gradient(circle, hsl(var(--muted-foreground) / 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, hsl(var(--muted-foreground) / 0.05) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -214,4 +214,13 @@
 /* Mobile overlay */
 .mobile-overlay {
   @apply fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-40;
+}
+
+/* Gold accent utility */
+.text-gold {
+  color: hsl(40 76% 55%);
+}
+
+.bg-gold {
+  background-color: hsl(40 76% 55%);
 }

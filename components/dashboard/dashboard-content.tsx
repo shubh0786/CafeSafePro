@@ -53,7 +53,7 @@ export function DashboardContent({
           <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
             Welcome back
           </h1>
-          <Sparkles className="h-5 w-5 text-amber-400" />
+          <Sparkles className="h-5 w-5 text-amber-500" />
         </div>
         <p className="text-sm sm:text-base text-muted-foreground">
           Here&apos;s what&apos;s happening at <span className="font-medium text-foreground">{storeName}</span> today
@@ -69,7 +69,7 @@ export function DashboardContent({
                 <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Pending Tasks
                 </p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2">
                   {stats.pendingTasks}
                 </p>
                 <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
@@ -90,7 +90,7 @@ export function DashboardContent({
                 <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Temp Checks
                 </p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2">
                   {stats.todayTempRecords}
                 </p>
                 <div className="flex items-center gap-1 mt-1">
@@ -123,7 +123,7 @@ export function DashboardContent({
                 <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Equipment
                 </p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2">
                   {stats.equipmentCount}
                 </p>
                 <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">Monitoring</p>
@@ -142,13 +142,13 @@ export function DashboardContent({
                 <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Staff
                 </p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2">
                   {stats.staffCount}
                 </p>
                 <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">Members</p>
               </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               </div>
             </div>
           </CardContent>
@@ -178,7 +178,7 @@ export function DashboardContent({
                 </div>
                 <div className="h-3 bg-muted rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-700 ease-out relative"
+                    className="h-full bg-gradient-to-r from-primary to-amber-500 rounded-full transition-all duration-700 ease-out relative"
                     style={{ width: `${taskCompletionRate}%` }}
                   >
                     <div className="absolute inset-0 bg-white/20 rounded-full" />
@@ -186,7 +186,7 @@ export function DashboardContent({
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Button asChild className="bg-emerald-600 hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all duration-200 rounded-xl">
+                <Button asChild className="shadow-md hover:shadow-lg transition-all duration-200 rounded-xl">
                   <Link href="/tasks">
                     View Tasks
                     <ArrowRight className="ml-2 h-4 w-4" />

@@ -154,7 +154,7 @@ export function StockContent({
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+            <Button className="rounded-xl">
               <Plus className="mr-2 h-4 w-4" />
               Record Delivery
             </Button>
@@ -255,7 +255,7 @@ export function StockContent({
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+                <Button type="submit" disabled={isSubmitting} className="rounded-xl">
                   {isSubmitting ? 'Adding...' : 'Add Stock Item'}
                 </Button>
               </div>

@@ -1,4 +1,4 @@
-# CafeSafe Pro
+# In Control
 
 A comprehensive food safety compliance management application for cafes and restaurants in New Zealand, aligned with MPI (Ministry for Primary Industries) regulations.
 

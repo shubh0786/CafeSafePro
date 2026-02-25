@@ -42,7 +42,7 @@ export default async function FranchisePage() {
               Manage multiple stores across your franchise group
             </p>
           </div>
-          <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+          <Button className="rounded-xl">
             <Plus className="mr-2 h-4 w-4" />
             Add Franchise
           </Button>
@@ -67,8 +67,8 @@ export default async function FranchisePage() {
                 <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Stores</div>
                 <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{totalStores}</div>
               </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Store className="h-5 w-5 text-primary" />
               </div>
             </CardContent>
           </Card>
@@ -120,7 +120,7 @@ export default async function FranchisePage() {
                     className="flex items-center justify-between p-4 rounded-xl hover:bg-muted/50 transition-all duration-200 cursor-pointer"
                   >
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-[hsl(222,47%,20%)] flex items-center justify-center shrink-0">
                         <Building2 className="h-6 w-6 text-white" />
                       </div>
                       <div className="min-w-0">

@@ -1,4 +1,4 @@
-# Testing CafeSafe Pro
+# Testing In Control
 
 ## Local Testing (Development Mode)
 
@@ -27,7 +27,7 @@ NEXTAUTH_SECRET="your-secret-key-change-this-in-production"
 NEXTAUTH_URL="http://localhost:3000"
 
 # App Settings
-APP_NAME="CafeSafe Pro"
+APP_NAME="In Control"
 APP_URL="http://localhost:3000"
 ```
 

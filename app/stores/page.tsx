@@ -68,7 +68,7 @@ export default async function StoresPage() {
             </p>
           </div>
           {userRole === 'FRANCHISE_ADMIN' && (
-            <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
+            <Button className="rounded-xl">
               <Plus className="mr-2 h-4 w-4" />
               Add New Store
             </Button>

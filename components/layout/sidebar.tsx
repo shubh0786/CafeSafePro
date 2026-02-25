@@ -121,21 +121,21 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
   return (
     <div
       className={cn(
-        'flex flex-col h-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-r border-gray-200/60 dark:border-gray-800/60',
+        'flex flex-col h-full bg-[hsl(222,47%,15%)] text-white',
         className
       )}
     >
       {/* Logo */}
       <div className="p-5 pb-4">
         <Link href="/dashboard" className="flex items-center gap-3 group" onClick={onNavigate}>
-          <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
-            <ShieldCheck className="h-5 w-5 text-white" />
+          <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
+            <ShieldCheck className="h-5 w-5 text-[hsl(222,47%,15%)]" />
           </div>
           <div>
-            <span className="font-bold text-[15px] text-foreground tracking-tight">
-              CafeSafe Pro
+            <span className="font-bold text-[15px] text-white tracking-tight">
+              In Control
             </span>
-            <span className="block text-[10px] text-emerald-600 dark:text-emerald-400 font-medium -mt-0.5">
+            <span className="block text-[10px] text-amber-400 font-medium -mt-0.5">
               MPI Compliance
             </span>
           </div>
@@ -154,17 +154,17 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 relative group',
                 isActive
-                  ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 shadow-sm'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                  ? 'bg-white/10 text-amber-400'
+                  : 'text-white/60 hover:bg-white/5 hover:text-white'
               )}
             >
               {isActive && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-emerald-500 rounded-r-full" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-amber-400 rounded-r-full" />
               )}
               <span
                 className={cn(
                   'transition-colors duration-200',
-                  isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground group-hover:text-foreground'
+                  isActive ? 'text-amber-400' : 'text-white/40 group-hover:text-white/70'
                 )}
               >
                 {item.icon}
@@ -176,10 +176,10 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
       </nav>
 
       {/* Sign Out */}
-      <div className="p-3 border-t border-border">
+      <div className="p-3 border-t border-white/10">
         <Button
           variant="ghost"
-          className="w-full justify-start text-muted-foreground hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-xl h-10 text-[13px] font-medium transition-all duration-200"
+          className="w-full justify-start text-white/40 hover:text-red-400 hover:bg-red-500/10 rounded-xl h-10 text-[13px] font-medium transition-all duration-200"
           onClick={() => signOut({ callbackUrl: '/' })}
         >
           <LogOut className="h-[18px] w-[18px] mr-2.5" />
