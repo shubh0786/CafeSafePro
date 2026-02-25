@@ -1,0 +1,405 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User roles for the 4-tier access system
+enum UserRole {
+  STAFF
+  MANAGER
+  OWNER
+  FRANCHISE_ADMIN
+}
+
+// Task types for daily operations
+enum TaskType {
+  OPENING
+  DURING_SERVICE
+  CLOSING
+  WEEKLY
+  MONTHLY
+}
+
+// Record types for MPI compliance
+enum RecordType {
+  TEMPERATURE
+  CLEANING
+  STOCK_RECEIVING
+  PEST_CONTROL
+  EQUIPMENT_MAINTENANCE
+  PERSONAL_HYGIENE
+  TRACEABILITY
+}
+
+// Temperature record categories
+enum TemperatureCategory {
+  COLD_STORAGE
+  FREEZER
+  HOT_HOLDING
+  COOKING
+  DELIVERY
+}
+
+// Compliance status
+enum ComplianceStatus {
+  COMPLIANT
+  NON_COMPLIANT
+  PENDING_REVIEW
+  CORRECTED
+}
+
+// ==================== CORE USER & AUTH ====================
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?   // For credentials provider
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  role          UserRole  @default(STAFF)
+  isActive      Boolean   @default(true) @map("is_active")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  storeUsers    StoreUser[]
+  tasks         Task[]          @relation("AssignedTasks")
+  records       Record[]        @relation("CreatedRecords")
+  correctiveActions CorrectiveAction[]
+  notifications Notification[]
+  auditLogs     AuditLog[]
+  temperatureRecords TemperatureRecord[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+// ==================== MULTI-TENANT STORE STRUCTURE ====================
+
+model Franchise {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  logo        String?
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  stores      Store[]
+
+  @@map("franchises")
+}
+
+model Store {
+  id          String   @id @default(cuid())
+  franchiseId String?  @map("franchise_id")
+  name        String
+  address     String
+  phone       String?
+  email       String?
+  registrationNumber String? @map("registration_number") // MPI/Council registration
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  franchise   Franchise?  @relation(fields: [franchiseId], references: [id])
+  storeUsers  StoreUser[]
+  equipment   Equipment[]
+  tasks       Task[]
+  records     Record[]
+  stockItems  StockItem[]
+  suppliers   Supplier[]
+  schedules   Schedule[]
+  auditLogs   AuditLog[]
+
+  @@map("stores")
+}
+
+// Junction table for users and stores (many-to-many)
+model StoreUser {
+  id        String   @id @default(cuid())
+  storeId   String   @map("store_id")
+  userId    String   @map("user_id")
+  role      UserRole // Role at this specific store
+  joinedAt  DateTime @default(now()) @map("joined_at")
+
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, userId])
+  @@map("store_users")
+}
+
+// ==================== MPI COMPLIANCE MODULES ====================
+
+// Equipment for temperature monitoring
+model Equipment {
+  id            String   @id @default(cuid())
+  storeId       String   @map("store_id")
+  name          String   // e.g., "Walk-in Fridge", "Prep Fridge 1"
+  category      TemperatureCategory
+  location      String?
+  minTemp       Float?   @map("min_temp") // Minimum acceptable temp
+  maxTemp       Float?   @map("max_temp") // Maximum acceptable temp
+  serialNumber  String?  @map("serial_number")
+  lastServiced  DateTime? @map("last_serviced")
+  nextService   DateTime? @map("next_service")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // Relations
+  store         Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  tempRecords   TemperatureRecord[]
+
+  @@map("equipment")
+}
+
+// Temperature records (required by MPI)
+model TemperatureRecord {
+  id            String   @id @default(cuid())
+  equipmentId   String   @map("equipment_id")
+  recordedBy    String   @map("recorded_by")
+  temperature   Float
+  recordedAt    DateTime @default(now()) @map("recorded_at")
+  notes         String?
+  isCompliant   Boolean  @map("is_compliant")
+  correctiveAction String? @map("corrective_action")
+
+  // Relations
+  equipment     Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  user          User      @relation(fields: [recordedBy], references: [id])
+
+  @@map("temperature_records")
+}
+
+// General compliance records (cleaning, pest control, etc.)
+model Record {
+  id              String           @id @default(cuid())
+  storeId         String           @map("store_id")
+  type            RecordType
+  createdBy       String           @map("created_by")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  status          ComplianceStatus @default(COMPLIANT)
+  notes           String?
+  attachments     String[]         // File paths/URLs
+  reviewedBy      String?          @map("reviewed_by")
+  reviewedAt      DateTime?        @map("reviewed_at")
+
+  // Relations
+  store           Store            @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  creator         User             @relation(fields: [createdBy], references: [id], name: "CreatedRecords")
+  details         RecordDetail[]
+  correctiveActions CorrectiveAction[]
+
+  @@map("records")
+}
+
+// Record details (flexible key-value pairs for different record types)
+model RecordDetail {
+  id       String @id @default(cuid())
+  recordId String @map("record_id")
+  key      String // e.g., "area_cleaned", "pest_evidence", "supplier_name"
+  value    String
+
+  record Record @relation(fields: [recordId], references: [id], onDelete: Cascade)
+
+  @@map("record_details")
+}
+
+// Corrective actions for non-compliance
+model CorrectiveAction {
+  id          String   @id @default(cuid())
+  recordId    String   @map("record_id")
+  assignedTo  String   @map("assigned_to")
+  description String
+  dueDate     DateTime @map("due_date")
+  completedAt DateTime? @map("completed_at")
+  completedBy String?   @map("completed_by")
+  status      String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, OVERDUE
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Relations
+  record      Record   @relation(fields: [recordId], references: [id], onDelete: Cascade)
+  assignee    User     @relation(fields: [assignedTo], references: [id])
+
+  @@map("corrective_actions")
+}
+
+// ==================== TASK MANAGEMENT ====================
+
+model Task {
+  id          String    @id @default(cuid())
+  storeId     String    @map("store_id")
+  type        TaskType
+  title       String
+  description String?
+  assignedTo  String?   @map("assigned_to")
+  dueTime     String?   @map("due_time") // e.g., "08:00" for opening tasks
+  isRecurring Boolean   @default(false) @map("is_recurring")
+  recurrence  String?   // daily, weekly, monthly
+  priority    String    @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
+  isCompleted Boolean   @default(false) @map("is_completed")
+  completedAt DateTime? @map("completed_at")
+  completedBy String?   @map("completed_by")
+  notes       String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  store       Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  assignee    User?     @relation(fields: [assignedTo], references: [id], name: "AssignedTasks")
+
+  @@map("tasks")
+}
+
+// Schedule templates for recurring tasks
+model Schedule {
+  id          String   @id @default(cuid())
+  storeId     String   @map("store_id")
+  name        String   // e.g., "Opening Checklist", "Closing Checklist"
+  description String?
+  taskType    TaskType @map("task_type")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Relations
+  store       Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  items       ScheduleItem[]
+
+  @@map("schedules")
+}
+
+model ScheduleItem {
+  id          String  @id @default(cuid())
+  scheduleId  String  @map("schedule_id")
+  title       String
+  description String?
+  dueTime     String? @map("due_time")
+  isRequired  Boolean @default(true) @map("is_required")
+  order       Int     @default(0)
+
+  schedule    Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@map("schedule_items")
+}
+
+// ==================== INVENTORY & TRACEABILITY ====================
+
+model Supplier {
+  id          String   @id @default(cuid())
+  storeId     String   @map("store_id")
+  name        String
+  contactName String?  @map("contact_name")
+  phone       String?
+  email       String?
+  address     String?
+  isApproved  Boolean  @default(true) @map("is_approved")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  store       Store      @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  stockItems  StockItem[]
+
+  @@map("suppliers")
+}
+
+model StockItem {
+  id           String    @id @default(cuid())
+  storeId      String    @map("store_id")
+  supplierId   String?   @map("supplier_id")
+  name         String
+  batchNumber  String?   @map("batch_number")
+  receivedDate DateTime  @default(now()) @map("received_date")
+  expiryDate   DateTime? @map("expiry_date")
+  quantity     Float
+  unit         String    // kg, liters, units, etc.
+  isUsed       Boolean   @default(false) @map("is_used")
+  usedDate     DateTime? @map("used_date")
+  notes        String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  store        Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  supplier     Supplier? @relation(fields: [supplierId], references: [id])
+
+  @@map("stock_items")
+}
+
+// ==================== NOTIFICATIONS & AUDIT ====================
+
+model Notification {
+  id          String    @id @default(cuid())
+  userId      String    @map("user_id")
+  type        String    // TEMP_ALERT, TASK_OVERDUE, COMPLIANCE_ISSUE, etc.
+  title       String
+  message     String
+  isRead      Boolean   @default(false) @map("is_read")
+  actionUrl   String?   @map("action_url")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  storeId     String?  @map("store_id")
+  userId      String?  @map("user_id")
+  action      String   // e.g., "TEMP_RECORD_CREATED", "TASK_COMPLETED"
+  entityType  String   @map("entity_type") // Record, Task, User, etc.
+  entityId    String?  @map("entity_id")
+  details     String?  // JSON string with additional details
+  ipAddress   String?  @map("ip_address")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  store       Store?   @relation(fields: [storeId], references: [id])
+  user        User?    @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
