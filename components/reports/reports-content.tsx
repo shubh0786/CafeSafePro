@@ -32,7 +32,7 @@ interface RecordDetail {
   value: string
 }
 
-interface Record {
+interface ComplianceRecord {
   id: string
   type: string
   status: string
@@ -50,7 +50,7 @@ interface ReportsContentProps {
     thisMonthTasks: number
     thisMonthCompletedTasks: number
   }
-  records: Record[]
+  records: ComplianceRecord[]
   storeName: string
 }
 
