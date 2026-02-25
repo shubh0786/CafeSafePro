@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { ComplianceStatus, RecordType } from '@prisma/client'
 
 interface RecordTemperatureInput {
   equipmentId: string
@@ -12,22 +13,20 @@ interface RecordTemperatureInput {
 
 export async function recordTemperature(input: RecordTemperatureInput) {
   try {
-    // Get equipment details
     const equipment = await prisma.equipment.findUnique({
       where: { id: input.equipmentId },
+      include: { store: { select: { name: true } } },
     })
 
     if (!equipment) {
       return { success: false, error: 'Equipment not found' }
     }
 
-    // Check if temperature is compliant
     const isCompliant =
       input.temperature >= (equipment.minTemp || 0) &&
       input.temperature <= (equipment.maxTemp || 100)
 
-    // Create the temperature record
-    const record = await prisma.temperatureRecord.create({
+    const tempRecord = await prisma.temperatureRecord.create({
       data: {
         equipmentId: input.equipmentId,
         recordedBy: input.recordedBy,
@@ -37,46 +36,65 @@ export async function recordTemperature(input: RecordTemperatureInput) {
       },
     })
 
-    // If non-compliant, create a corrective action task
     if (!isCompliant) {
+      const complianceRecord = await prisma.record.create({
+        data: {
+          storeId: equipment.storeId,
+          type: RecordType.TEMPERATURE,
+          createdBy: input.recordedBy,
+          status: ComplianceStatus.NON_COMPLIANT,
+          notes: `Non-compliant temperature: ${equipment.name} recorded at ${input.temperature}°C (acceptable: ${equipment.minTemp}°C – ${equipment.maxTemp}°C)`,
+          details: {
+            create: [
+              { key: 'Equipment', value: equipment.name },
+              { key: 'Temperature', value: `${input.temperature}°C` },
+              { key: 'Acceptable Range', value: `${equipment.minTemp}°C – ${equipment.maxTemp}°C` },
+              { key: 'Location', value: equipment.location || 'N/A' },
+            ],
+          },
+        },
+      })
+
       await prisma.correctiveAction.create({
         data: {
-          recordId: record.id,
+          recordId: complianceRecord.id,
           assignedTo: input.recordedBy,
-          description: `Temperature out of range for ${equipment.name}: ${input.temperature}°C (expected: ${equipment.minTemp}°C - ${equipment.maxTemp}°C)`,
-          dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // Due in 24 hours
+          description: `Temperature out of range for ${equipment.name}: ${input.temperature}°C (expected: ${equipment.minTemp}°C – ${equipment.maxTemp}°C). Check equipment and take corrective action.`,
+          dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
           status: 'PENDING',
         },
       })
 
-      // Create notification for managers
-      const storeUsers = await prisma.storeUser.findMany({
+      const managementUsers = await prisma.storeUser.findMany({
         where: {
           storeId: equipment.storeId,
-          role: { in: ['MANAGER', 'OWNER'] },
+          role: { in: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'] },
         },
       })
 
-      await prisma.notification.createMany({
-        data: storeUsers.map((user) => ({
-          userId: user.userId,
-          type: 'TEMP_ALERT',
-          title: 'Temperature Alert',
-          message: `${equipment.name} recorded at ${input.temperature}°C (outside acceptable range)`,
-          actionUrl: `/temperature`,
-        })),
-      })
+      if (managementUsers.length > 0) {
+        await prisma.notification.createMany({
+          data: managementUsers.map((su) => ({
+            userId: su.userId,
+            type: 'TEMP_ALERT',
+            title: `Temperature Alert – ${equipment.store.name}`,
+            message: `${equipment.name} recorded at ${input.temperature}°C (outside ${equipment.minTemp}°C – ${equipment.maxTemp}°C range). Corrective action required.`,
+            actionUrl: '/temperature',
+          })),
+        })
+      }
     }
 
-    // Create audit log
     await prisma.auditLog.create({
       data: {
         action: 'TEMP_RECORD_CREATED',
         entityType: 'TemperatureRecord',
-        entityId: record.id,
+        entityId: tempRecord.id,
         userId: input.recordedBy,
+        storeId: equipment.storeId,
         details: JSON.stringify({
           equipmentId: input.equipmentId,
+          equipmentName: equipment.name,
           temperature: input.temperature,
           isCompliant,
         }),
@@ -86,7 +104,7 @@ export async function recordTemperature(input: RecordTemperatureInput) {
     revalidatePath('/temperature')
     revalidatePath('/dashboard')
 
-    return { success: true, data: record }
+    return { success: true, data: tempRecord }
   } catch (error) {
     console.error('Failed to record temperature:', error)
     return { success: false, error: 'Failed to record temperature' }
