@@ -17,11 +17,11 @@ export default async function PestControlPage() {
 
   return (
     <DashboardShell>
-      <div className="space-y-8">
-        <div className="flex items-center justify-between">
+      <div className="space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Pest Control</h1>
-            <p className="text-gray-500 mt-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Pest Control</h1>
+            <p className="text-muted-foreground mt-1">
               Track pest control inspections and contractor visits
             </p>
           </div>
@@ -34,52 +34,52 @@ export default async function PestControlPage() {
         </div>
 
         {/* Info Cards */}
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Inspection Schedule</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">Weekly</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Inspection Schedule</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">Weekly</p>
+                  <p className="text-xs text-muted-foreground mt-1">
                     Required by MPI Food Control Plan
                   </p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Calendar className="h-5 w-5 text-amber-500" />
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Last Inspection</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">2 days ago</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Last Inspection</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">2 days ago</p>
+                  <p className="text-xs text-muted-foreground mt-1">
                     No issues found
                   </p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <CheckCircle className="h-5 w-5 text-emerald-500" />
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5">
+          <Card className="col-span-2 lg:col-span-1 border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Status</p>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Status</p>
                   <div className="mt-2">
-                    <Badge className="bg-emerald-50 text-emerald-700 border-emerald-100">Compliant</Badge>
+                    <Badge className="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-border">Compliant</Badge>
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-xs text-muted-foreground mt-2">
                     All pest control measures in place
                   </p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <ClipboardCheck className="h-5 w-5 text-sky-500" />
                 </div>
               </div>
@@ -88,9 +88,9 @@ export default async function PestControlPage() {
         </div>
 
         {/* Guidelines */}
-        <Card className="border-0 shadow-soft bg-white">
+        <Card className="border-0 shadow-soft">
           <CardHeader className="pb-4">
-            <CardTitle className="text-base font-semibold text-gray-900">MPI Pest Control Requirements</CardTitle>
+            <CardTitle className="text-base font-semibold text-foreground">MPI Pest Control Requirements</CardTitle>
             <CardDescription>
               Key requirements for pest control compliance
             </CardDescription>
@@ -114,9 +114,9 @@ export default async function PestControlPage() {
                 desc: 'Maintain pest-proofing measures including sealed doors, intact screens, and proper waste management. Store food products off the floor.',
               },
             ].map((item) => (
-              <div key={item.title} className="p-4 rounded-xl bg-gray-50/80 space-y-1.5">
-                <h4 className="font-medium text-sm text-gray-900">{item.title}</h4>
-                <p className="text-sm text-gray-500 leading-relaxed">
+              <div key={item.title} className="p-4 rounded-xl bg-muted/50 space-y-1.5">
+                <h4 className="font-medium text-sm text-foreground">{item.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -125,8 +125,8 @@ export default async function PestControlPage() {
         </Card>
 
         {/* Action Buttons */}
-        <div className="flex gap-3">
-          <Button asChild variant="outline" className="rounded-xl border-gray-200">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Button asChild variant="outline" className="rounded-xl border-border">
             <Link href="/records?type=PEST_CONTROL">
               View Inspection Records
             </Link>

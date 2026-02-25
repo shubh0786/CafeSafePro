@@ -22,11 +22,11 @@ export function StoreSelector() {
   }
 
   return (
-    <div className="px-6 lg:px-8 py-3 border-b border-gray-100 bg-white/60 backdrop-blur-sm">
+    <div className="px-4 sm:px-6 lg:px-8 py-3 border-b border-border bg-card/60 backdrop-blur-sm">
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 text-sm text-gray-500">
-          <Store className="h-4 w-4 text-gray-400" />
-          <span className="font-medium">Store:</span>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Store className="h-4 w-4" />
+          <span className="font-medium hidden sm:inline">Store:</span>
         </div>
         <Select
           value={selectedStore?.id}
@@ -37,7 +37,7 @@ export function StoreSelector() {
             }
           }}
         >
-          <SelectTrigger className="w-[280px] h-9 rounded-xl border-gray-200 bg-white text-sm">
+          <SelectTrigger className="w-full sm:w-[280px] h-9 rounded-xl text-sm">
             <SelectValue placeholder="Select a store" />
           </SelectTrigger>
           <SelectContent>

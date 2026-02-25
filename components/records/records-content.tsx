@@ -133,7 +133,7 @@ export function RecordsContent({
   const fields = selectedType ? recordFields[selectedType] || [] : []
 
   const filteredRecords = records.filter((record) => {
-    const matchesType = filterType ? record.type === filterType : true
+    const matchesType = filterType && filterType !== 'all' ? record.type === filterType : true
     const matchesSearch = searchQuery
       ? record.notes?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         record.creator.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -187,11 +187,11 @@ export function RecordsContent({
   }
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Compliance Records</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Compliance Records</h1>
+          <p className="text-muted-foreground mt-1">
             Record cleaning, pest control, maintenance, and other compliance activities
           </p>
         </div>
@@ -204,14 +204,14 @@ export function RecordsContent({
           </DialogTrigger>
           <DialogContent className="max-w-lg rounded-2xl">
             <DialogHeader>
-              <DialogTitle className="text-lg font-semibold text-gray-900">Create New Record</DialogTitle>
+              <DialogTitle className="text-lg font-semibold text-foreground">Create New Record</DialogTitle>
               <DialogDescription>
                 Record compliance activity for MPI requirements
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-sm font-medium text-gray-700">Record Type</Label>
+                <Label className="text-sm font-medium text-foreground">Record Type</Label>
                 <Select value={selectedType} onValueChange={setSelectedType}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select record type" />
@@ -229,7 +229,7 @@ export function RecordsContent({
 
               {fields.map((field) => (
                 <div key={field.label} className="space-y-2">
-                  <Label htmlFor={field.label} className="text-sm font-medium text-gray-700">{field.label}</Label>
+                  <Label htmlFor={field.label} className="text-sm font-medium text-foreground">{field.label}</Label>
                   <Input
                     id={field.label}
                     value={formData[field.label] || ''}
@@ -243,14 +243,14 @@ export function RecordsContent({
               ))}
 
               <div className="space-y-2">
-                <Label htmlFor="notes" className="text-sm font-medium text-gray-700">Notes</Label>
+                <Label htmlFor="notes" className="text-sm font-medium text-foreground">Notes</Label>
                 <Textarea
                   id="notes"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Additional observations or comments"
                   rows={3}
-                  className="rounded-xl border-gray-200 focus:border-emerald-400 focus:ring-emerald-400/20"
+                  className="rounded-xl border-border focus:border-emerald-400 focus:ring-emerald-400/20"
                 />
               </div>
 
@@ -273,26 +273,26 @@ export function RecordsContent({
       </div>
 
       {/* Quick Record Buttons */}
-      <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
         {recordTypes.map((type) => (
           <div
             key={type.value}
-            className="cursor-pointer rounded-xl border border-gray-100 bg-white p-5 text-center hover:shadow-soft-md hover:border-gray-200 transition-all duration-200 group"
+            className="cursor-pointer rounded-xl border border-border p-5 text-center hover:shadow-soft-md hover:border-border transition-all duration-200 group"
             onClick={() => openCreateDialog(type.value)}
           >
             <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-200">{type.icon}</div>
-            <p className="font-medium text-sm text-gray-700">{type.label}</p>
+            <p className="font-medium text-sm text-foreground">{type.label}</p>
           </div>
         ))}
       </div>
 
       {/* Corrective Actions Alert */}
       {correctiveActions.length > 0 && (
-        <Card className="border-red-100 bg-red-50/50 shadow-none">
+        <Card className="border-red-100 bg-red-50/50 dark:bg-red-950/30 shadow-none">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-red-800">
-              <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
-                <AlertCircle className="h-4 w-4 text-red-600" />
+            <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-red-800 dark:text-red-400">
+              <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
               </div>
               Pending Corrective Actions ({correctiveActions.length})
             </CardTitle>
@@ -302,19 +302,19 @@ export function RecordsContent({
               {correctiveActions.slice(0, 3).map((action) => (
                 <div
                   key={action.id}
-                  className="flex items-center justify-between p-3.5 bg-white rounded-xl border border-red-100"
+                  className="flex items-center justify-between p-3.5 bg-background rounded-xl border border-red-100"
                 >
                   <div>
-                    <p className="font-medium text-sm text-red-900">
+                    <p className="font-medium text-sm text-red-900 dark:text-red-400">
                       {action.record.type.replace(/_/g, ' ')} Issue
                     </p>
-                    <p className="text-sm text-red-700/80">{action.description}</p>
+                    <p className="text-sm text-red-700 dark:text-red-400/80">{action.description}</p>
                     <p className="text-xs text-red-500 mt-1">
-                      Assigned to {action.assignee.name} &middot; Due{' '}
+                      Assigned to {action.assignee.name || 'Unassigned'} &middot; Due{' '}
                       {new Date(action.dueDate).toLocaleDateString()}
                     </p>
                   </div>
-                  <Badge variant="outline" className="border-red-200 text-red-700 bg-red-50">
+                  <Badge variant="outline" className="border-red-200 text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/50">
                     {action.status}
                   </Badge>
                 </div>
@@ -325,16 +325,16 @@ export function RecordsContent({
       )}
 
       {/* Records Table */}
-      <Card className="border-0 shadow-soft bg-white">
+      <Card className="border-0 shadow-soft">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base font-semibold text-gray-900">Recent Records</CardTitle>
+          <CardTitle className="text-base font-semibold text-foreground">Recent Records</CardTitle>
           <CardDescription>View and filter all compliance records</CardDescription>
         </CardHeader>
         <CardContent>
           {/* Filters */}
-          <div className="flex gap-3 mb-6">
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <div className="flex-1 relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search records..."
                 value={searchQuery}
@@ -343,12 +343,12 @@ export function RecordsContent({
               />
             </div>
             <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger className="w-[200px]">
-                <Filter className="h-4 w-4 mr-2 text-gray-400" />
+              <SelectTrigger className="w-full sm:w-[200px]">
+                <Filter className="h-4 w-4 mr-2 text-muted-foreground" />
                 <SelectValue placeholder="Filter by type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Types</SelectItem>
+                <SelectItem value="all">All Types</SelectItem>
                 {recordTypes.map((type) => (
                   <SelectItem key={type.value} value={type.value}>
                     {type.label}
@@ -359,60 +359,64 @@ export function RecordsContent({
           </div>
 
           {/* Table */}
-          <Table>
-            <TableHeader>
-              <TableRow className="border-gray-100">
-                <TableHead className="text-gray-500">Type</TableHead>
-                <TableHead className="text-gray-500">Status</TableHead>
-                <TableHead className="text-gray-500">Recorded By</TableHead>
-                <TableHead className="text-gray-500">Date & Time</TableHead>
-                <TableHead className="text-gray-500">Details</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredRecords.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-12">
-                    <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                      <FileText className="h-6 w-6 text-gray-400" />
-                    </div>
-                    <p className="text-gray-500 font-medium">No records found</p>
-                  </TableCell>
-                </TableRow>
-              ) : (
-                filteredRecords.map((record) => (
-                  <TableRow key={record.id} className="border-gray-50 hover:bg-gray-50/50">
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <span>
-                          {recordTypes.find((t) => t.value === record.type)?.icon}
-                        </span>
-                        <span className="font-medium text-sm text-gray-900">
-                          {record.type.replace(/_/g, ' ')}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={getStatusColor(record.status)}>
-                        {record.status.replace(/_/g, ' ')}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-sm text-gray-600">{record.creator.name}</TableCell>
-                    <TableCell className="text-sm text-gray-500">{formatDateTime(record.createdAt)}</TableCell>
-                    <TableCell>
-                      <div className="text-sm text-gray-500 max-w-[200px] truncate">
-                        {record.notes ||
-                          record.details
-                            .map((d) => `${d.key}: ${d.value}`)
-                            .slice(0, 2)
-                            .join(', ')}
-                      </div>
-                    </TableCell>
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <div className="min-w-[600px] sm:min-w-0">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-border">
+                    <TableHead className="text-muted-foreground">Type</TableHead>
+                    <TableHead className="text-muted-foreground">Status</TableHead>
+                    <TableHead className="text-muted-foreground">Recorded By</TableHead>
+                    <TableHead className="text-muted-foreground">Date & Time</TableHead>
+                    <TableHead className="text-muted-foreground">Details</TableHead>
                   </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
+                </TableHeader>
+                <TableBody>
+                  {filteredRecords.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center py-12">
+                        <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
+                          <FileText className="h-6 w-6 text-muted-foreground" />
+                        </div>
+                        <p className="text-muted-foreground font-medium">No records found</p>
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    filteredRecords.map((record) => (
+                      <TableRow key={record.id} className="border-border hover:bg-muted/50">
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <span>
+                              {recordTypes.find((t) => t.value === record.type)?.icon}
+                            </span>
+                            <span className="font-medium text-sm text-foreground">
+                              {record.type.replace(/_/g, ' ')}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={getStatusColor(record.status)}>
+                            {record.status.replace(/_/g, ' ')}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-sm text-foreground">{record.creator.name || 'Unknown'}</TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{formatDateTime(record.createdAt)}</TableCell>
+                        <TableCell>
+                          <div className="text-sm text-muted-foreground max-w-[200px] truncate">
+                            {record.notes ||
+                              record.details
+                                .map((d) => `${d.key}: ${d.value}`)
+                                .slice(0, 2)
+                                .join(', ')}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>

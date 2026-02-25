@@ -59,11 +59,11 @@ export default async function StoresPage() {
 
   return (
     <DashboardShell>
-      <div className="space-y-8">
-        <div className="flex items-center justify-between">
+      <div className="space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Store Management</h1>
-            <p className="text-gray-500 mt-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Store Management</h1>
+            <p className="text-muted-foreground mt-1">
               Manage your cafe locations and their settings
             </p>
           </div>
@@ -76,108 +76,108 @@ export default async function StoresPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid gap-4 md:grid-cols-4">
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5 flex items-center justify-between">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Stores</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">{stores.length}</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Stores</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{stores.length}</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-gray-600" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Store className="h-5 w-5 text-foreground" />
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5 flex items-center justify-between">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Active</p>
-                <p className="text-3xl font-bold text-emerald-600 mt-2">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Active</p>
+                <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">
                   {stores.filter((s) => s.isActive).length}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-emerald-600" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Store className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5 flex items-center justify-between">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Staff</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Staff</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
                   {stores.reduce((acc, s) => acc + s._count.storeUsers, 0)}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-sky-600" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Store className="h-5 w-5 text-sky-600 dark:text-sky-400" />
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5 flex items-center justify-between">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Equipment</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Equipment</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
                   {stores.reduce((acc, s) => acc + s._count.equipment, 0)}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-violet-600" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Store className="h-5 w-5 text-violet-600 dark:text-violet-400" />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Stores List */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {stores.length === 0 ? (
-            <Card className="md:col-span-2 lg:col-span-3">
+            <Card className="sm:col-span-2 lg:col-span-3">
               <CardContent className="py-12 text-center">
-                <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                  <Store className="h-6 w-6 text-gray-500" />
+                <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
+                  <Store className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <p className="text-gray-500 font-medium">No stores found.</p>
+                <p className="text-muted-foreground font-medium">No stores found.</p>
               </CardContent>
             </Card>
           ) : (
             stores.map((store) => (
-              <Card key={store.id} className="border-0 shadow-soft bg-white hover:shadow-soft-md transition-all duration-300">
+              <Card key={store.id} className="border-0 shadow-soft hover:shadow-soft-md transition-all duration-300">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-lg">{store.name}</CardTitle>
-                    <Badge className={store.isActive ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-gray-50 text-gray-600 border border-gray-100'}>
+                    <Badge className={store.isActive ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-border' : 'bg-muted/50 text-foreground border border-border'}>
                       {store.isActive ? 'Active' : 'Inactive'}
                     </Badge>
                   </div>
-                  <CardDescription className="flex items-center gap-1 text-gray-500">
+                  <CardDescription className="flex items-center gap-1 text-muted-foreground">
                     <MapPin className="h-3 w-3" />
                     {store.address}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-gray-500">
+                    <div className="flex items-center gap-2 text-muted-foreground">
                       <Phone className="h-4 w-4" />
                       {store.phone || 'No phone'}
                     </div>
-                    <div className="flex items-center gap-2 text-gray-500">
+                    <div className="flex items-center gap-2 text-muted-foreground">
                       <Mail className="h-4 w-4" />
                       {store.email || 'No email'}
                     </div>
-                    <div className="flex items-center gap-2 text-gray-500">
+                    <div className="flex items-center gap-2 text-muted-foreground">
                       <FileText className="h-4 w-4" />
                       {store.registrationNumber || 'No registration'}
                     </div>
                   </div>
-                  <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-2 gap-4">
+                  <div className="mt-4 pt-4 border-t border-border grid grid-cols-2 gap-4">
                     <div className="text-center">
                       <p className="text-2xl font-bold">{store._count.storeUsers}</p>
-                      <p className="text-xs text-gray-400">Staff</p>
+                      <p className="text-xs text-muted-foreground">Staff</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold">{store._count.equipment}</p>
-                      <p className="text-xs text-gray-400">Equipment</p>
+                      <p className="text-xs text-muted-foreground">Equipment</p>
                     </div>
                   </div>
                   <div className="mt-4 flex gap-2">

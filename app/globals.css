@@ -38,9 +38,9 @@
   .dark {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
-    --card: 224 50% 7%;
+    --card: 220 40% 8%;
     --card-foreground: 210 20% 98%;
-    --popover: 224 50% 7%;
+    --popover: 220 40% 8%;
     --popover-foreground: 210 20% 98%;
     --primary: 160 84% 45%;
     --primary-foreground: 0 0% 100%;
@@ -55,7 +55,7 @@
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 160 84% 45%;
-    --sidebar: 224 60% 5%;
+    --sidebar: 224 50% 5%;
     --sidebar-foreground: 210 20% 98%;
     --sidebar-border: 215 27.9% 16.9%;
     --sidebar-accent: 160 40% 12%;
@@ -103,22 +103,16 @@
   animation: gradient-shift 15s ease infinite;
 }
 
-/* Glassmorphism utilities */
+/* Glassmorphism - theme aware */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-white/30 dark:border-gray-700/30;
 }
 
 .glass-subtle {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  @apply bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-white/20 dark:border-gray-700/20;
 }
 
-/* Floating dot pattern for backgrounds */
+/* Dot pattern - theme aware */
 .dot-pattern {
   background-image: radial-gradient(circle, hsl(var(--muted-foreground) / 0.07) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -126,14 +120,8 @@
 
 /* Smooth page transitions */
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in-up {
@@ -176,30 +164,30 @@
   animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 
-/* Status badges */
+/* Status badges - theme aware */
 .status-compliant {
-  @apply bg-emerald-50 text-emerald-700 border-emerald-200;
+  @apply bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-400 dark:border-emerald-800;
 }
 
 .status-non-compliant {
-  @apply bg-red-50 text-red-700 border-red-200;
+  @apply bg-red-50 text-red-700 border-red-200 dark:bg-red-950 dark:text-red-400 dark:border-red-800;
 }
 
 .status-pending {
-  @apply bg-amber-50 text-amber-700 border-amber-200;
+  @apply bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-400 dark:border-amber-800;
 }
 
 /* Temperature indicator */
 .temp-good {
-  @apply text-emerald-600;
+  @apply text-emerald-600 dark:text-emerald-400;
 }
 
 .temp-warning {
-  @apply text-amber-500;
+  @apply text-amber-500 dark:text-amber-400;
 }
 
 .temp-danger {
-  @apply text-red-500;
+  @apply text-red-500 dark:text-red-400;
 }
 
 /* Glow effect for primary actions */
@@ -207,14 +195,23 @@
   box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.4);
 }
 
-.glow-success {
-  box-shadow: 0 0 20px -5px hsl(var(--success) / 0.4);
+/* Mobile-first: hide scrollbar on horizontal scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-.glow-warning {
-  box-shadow: 0 0 20px -5px hsl(var(--warning) / 0.4);
+/* Safe area padding for mobile notch devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
 
-.glow-danger {
-  box-shadow: 0 0 20px -5px hsl(var(--danger) / 0.4);
+/* Mobile overlay */
+.mobile-overlay {
+  @apply fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-40;
 }

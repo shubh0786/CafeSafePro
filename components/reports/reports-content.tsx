@@ -95,16 +95,16 @@ export function ReportsContent({
   }
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Reports</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Reports</h1>
+          <p className="text-muted-foreground mt-1">
             Generate compliance reports for MPI verification
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" className="rounded-xl border-gray-200" onClick={handlePrintReport}>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button variant="outline" className="rounded-xl border-border" onClick={handlePrintReport}>
             <FileText className="mr-2 h-4 w-4" />
             Print
           </Button>
@@ -116,15 +116,15 @@ export function ReportsContent({
       </div>
 
       {/* Report Configuration */}
-      <Card className="border-0 shadow-soft bg-white">
+      <Card className="border-0 shadow-soft">
         <CardHeader>
           <CardTitle>Report Configuration</CardTitle>
-          <CardDescription className="text-gray-500">
+          <CardDescription className="text-muted-foreground">
             Select the type of report and date range
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <label className="text-sm font-medium mb-2 block">Report Type</label>
               <Select value={reportType} onValueChange={setReportType}>
@@ -161,74 +161,74 @@ export function ReportsContent({
       </Card>
 
       {/* Summary Stats */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Task Completion</p>
-                <div className="text-3xl font-bold text-gray-900 mt-2">{taskCompletionRate}%</div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Task Completion</p>
+                <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{taskCompletionRate}%</div>
+                <p className="text-xs text-muted-foreground mt-1">
                   {stats.thisMonthCompletedTasks} of {stats.thisMonthTasks} tasks
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <ClipboardList className="h-5 w-5 text-emerald-600" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <ClipboardList className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Temp Compliance</p>
-                <div className="text-3xl font-bold text-gray-900 mt-2">{tempComplianceRate}%</div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Temp Compliance</p>
+                <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{tempComplianceRate}%</div>
+                <p className="text-xs text-muted-foreground mt-1">
                   {stats.thisMonthTempRecords} temperature checks
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <Thermometer className="h-5 w-5 text-blue-600" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Records Created</p>
-                <div className="text-3xl font-bold text-gray-900 mt-2">{stats.thisMonthRecords}</div>
-                <p className="text-xs text-gray-500 mt-1">This month</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Records Created</p>
+                <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{stats.thisMonthRecords}</div>
+                <p className="text-xs text-muted-foreground mt-1">This month</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <FileText className="h-5 w-5 text-slate-600" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <FileText className="h-5 w-5 text-foreground" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Overall Status</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Overall Status</p>
                 <Badge
                   className={
                     taskCompletionRate >= 90 && tempComplianceRate >= 95
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-                      : 'bg-amber-50 text-amber-700 border border-amber-100'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-border'
+                      : 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border border-border'
                   }
                 >
                   {taskCompletionRate >= 90 && tempComplianceRate >= 95
                     ? 'Excellent'
                     : 'Needs Attention'}
                 </Badge>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   Based on completion & compliance
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <TrendingUp className="h-5 w-5 text-violet-600" />
               </div>
             </div>
@@ -246,12 +246,12 @@ export function ReportsContent({
 
         <TabsContent value="summary" className="space-y-6">
           {/* Compliance Summary Report */}
-          <Card className="border-0 shadow-soft bg-white print:shadow-none">
+          <Card className="border-0 shadow-soft print:shadow-none">
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle>Compliance Summary Report</CardTitle>
-                  <CardDescription className="text-gray-500">
+                  <CardDescription className="text-muted-foreground">
                     {storeName} • {new Date().toLocaleDateString('en-NZ')}
                   </CardDescription>
                 </div>
@@ -259,7 +259,7 @@ export function ReportsContent({
               </div>
             </CardHeader>
             <CardContent className="space-y-6 pt-6">
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                 <div>
                   <h4 className="font-medium mb-3 flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-emerald-500" />
@@ -296,7 +296,7 @@ export function ReportsContent({
                     </div>
                     <div className="flex justify-between text-sm">
                       <span>Compliant</span>
-                      <span className="font-medium text-emerald-600">
+                      <span className="font-medium text-emerald-600 dark:text-emerald-400">
                         {stats.thisMonthTempRecords - stats.thisMonthNonCompliantTemps}
                       </span>
                     </div>
@@ -315,7 +315,7 @@ export function ReportsContent({
                   <AlertCircle className="h-4 w-4 text-amber-500" />
                   MPI Compliance Statement
                 </h4>
-                <p className="text-sm text-gray-500 leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   This report confirms that {storeName} has maintained food safety
                   records in accordance with the MPI Food Control Plan requirements
                   for the reporting period. All required daily checks, temperature
@@ -336,7 +336,7 @@ export function ReportsContent({
                   ).map(([type, count]) => (
                     <div
                       key={type}
-                      className="flex justify-between items-center p-2 bg-gray-50 rounded-xl"
+                      className="flex justify-between items-center p-2 bg-muted/50 rounded-xl"
                     >
                       <span className="text-sm">
                         {recordTypeLabels[type] || type}
@@ -351,24 +351,24 @@ export function ReportsContent({
         </TabsContent>
 
         <TabsContent value="records">
-          <Card className="border-0 shadow-soft bg-white">
+          <Card className="border-0 shadow-soft">
             <CardHeader>
               <CardTitle>Recent Records</CardTitle>
-              <CardDescription className="text-gray-500">
+              <CardDescription className="text-muted-foreground">
                 Detailed view of compliance records for verification
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {records.length === 0 ? (
-                  <p className="text-gray-500 text-center py-8">
+                  <p className="text-muted-foreground text-center py-8">
                     No records found for the selected period.
                   </p>
                 ) : (
                   records.slice(0, 20).map((record) => (
                     <div
                       key={record.id}
-                      className="flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-all duration-200"
+                      className="flex items-center justify-between p-4 rounded-xl hover:bg-muted/50 transition-all duration-200"
                     >
                       <div className="flex items-start gap-4">
                         <div
@@ -384,17 +384,17 @@ export function ReportsContent({
                           <p className="font-medium">
                             {recordTypeLabels[record.type] || record.type}
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-muted-foreground">
                             By {record.creator.name || 'Unknown'} •{' '}
                             {formatDateTime(record.createdAt)}
                           </p>
                           {record.notes && (
-                            <p className="text-sm text-gray-500 mt-1">
+                            <p className="text-sm text-muted-foreground mt-1">
                               {record.notes}
                             </p>
                           )}
                           {record.details.length > 0 && (
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-muted-foreground mt-1">
                               {record.details
                                 .slice(0, 2)
                                 .map((d) => `${d.key}: ${d.value}`)
@@ -415,22 +415,22 @@ export function ReportsContent({
         </TabsContent>
 
         <TabsContent value="compliance">
-          <Card className="border-0 shadow-soft bg-white">
+          <Card className="border-0 shadow-soft">
             <CardHeader>
               <CardTitle>Compliance Analysis</CardTitle>
-              <CardDescription className="text-gray-500">
+              <CardDescription className="text-muted-foreground">
                 Areas requiring attention for MPI compliance
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {stats.thisMonthNonCompliantTemps === 0 && taskCompletionRate >= 90 ? (
-                <div className="flex items-center gap-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                <div className="flex items-center gap-4 p-4 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-xl">
                   <CheckCircle className="h-8 w-8 text-emerald-500" />
                   <div>
-                    <p className="font-medium text-emerald-800">
+                    <p className="font-medium text-emerald-800 dark:text-emerald-400">
                       Excellent Compliance Status
                     </p>
-                    <p className="text-sm text-emerald-700">
+                    <p className="text-sm text-emerald-700 dark:text-emerald-400">
                       All temperature checks are within range and task completion is
                       above target. Continue maintaining these standards.
                     </p>
@@ -439,13 +439,13 @@ export function ReportsContent({
               ) : (
                 <div className="space-y-4">
                   {stats.thisMonthNonCompliantTemps > 0 && (
-                    <div className="flex items-start gap-4 p-4 bg-red-50 border border-red-200 rounded-xl">
+                    <div className="flex items-start gap-4 p-4 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-xl">
                       <AlertCircle className="h-8 w-8 text-red-500 mt-1" />
                       <div>
-                        <p className="font-medium text-red-800">
+                        <p className="font-medium text-red-800 dark:text-red-400">
                           Temperature Non-Compliance Alert
                         </p>
-                        <p className="text-sm text-red-700">
+                        <p className="text-sm text-red-700 dark:text-red-400">
                           {stats.thisMonthNonCompliantTemps} temperature readings were
                           outside acceptable ranges. Review equipment and ensure
                           corrective actions are completed and documented.
@@ -454,13 +454,13 @@ export function ReportsContent({
                     </div>
                   )}
                   {taskCompletionRate < 90 && (
-                    <div className="flex items-start gap-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                    <div className="flex items-start gap-4 p-4 bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 rounded-xl">
                       <AlertCircle className="h-8 w-8 text-amber-500 mt-1" />
                       <div>
-                        <p className="font-medium text-amber-800">
+                        <p className="font-medium text-amber-800 dark:text-amber-400">
                           Task Completion Below Target
                         </p>
-                        <p className="text-sm text-amber-700">
+                        <p className="text-sm text-amber-700 dark:text-amber-400">
                           Task completion rate is at {taskCompletionRate}%. MPI requires
                           consistent completion of all daily tasks. Review task
                           assignment and ensure staff are completing all required

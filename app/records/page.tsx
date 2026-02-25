@@ -57,11 +57,14 @@ export default async function RecordsPage() {
     orderBy: { dueDate: 'asc' },
   })
 
+  const serializedRecords = JSON.parse(JSON.stringify(records))
+  const serializedActions = JSON.parse(JSON.stringify(correctiveActions))
+
   return (
     <DashboardShell>
       <RecordsContent
-        records={records}
-        correctiveActions={correctiveActions}
+        records={serializedRecords}
+        correctiveActions={serializedActions}
         storeId={storeId}
         userId={session.user.id}
         userRole={session.user.role}

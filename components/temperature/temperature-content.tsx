@@ -123,18 +123,18 @@ export function TemperatureContent({
   }
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Temperature Monitoring</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Temperature Monitoring</h1>
+          <p className="text-muted-foreground mt-1">
             Record and monitor equipment temperatures for MPI compliance
           </p>
         </div>
       </div>
 
       <Tabs defaultValue="record" className="space-y-6">
-        <TabsList>
+        <TabsList className="overflow-x-auto scrollbar-hide">
           <TabsTrigger value="record">Record Temperature</TabsTrigger>
           <TabsTrigger value="today">Today&apos;s Records</TabsTrigger>
           <TabsTrigger value="history">History</TabsTrigger>
@@ -142,10 +142,10 @@ export function TemperatureContent({
 
         <TabsContent value="record" className="space-y-6">
           {Object.entries(equipmentByCategory).map(([category, items]) => (
-            <Card key={category} className="border-0 shadow-soft bg-white">
+            <Card key={category} className="border-0 shadow-soft">
               <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-gray-900">
-                  <div className="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center">
+                <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
+                  <div className="w-8 h-8 rounded-lg bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center">
                     <Thermometer className="h-4 w-4 text-sky-500" />
                   </div>
                   {categoryLabels[category] || category}
@@ -155,7 +155,7 @@ export function TemperatureContent({
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((item) => {
                     const isChecked = checkedToday.has(item.id)
                     const lastRecord = todayRecords.find(
@@ -167,42 +167,42 @@ export function TemperatureContent({
                         key={item.id}
                         className={`cursor-pointer rounded-xl border p-4 transition-all duration-200 hover:shadow-soft-md group ${
                           isChecked
-                            ? 'border-emerald-200 bg-emerald-50/50'
-                            : 'border-gray-100 bg-white hover:border-gray-200'
+                            ? 'border-emerald-200 bg-emerald-50/50 dark:bg-emerald-950/30'
+                            : 'border-border hover:border-border'
                         }`}
                         onClick={() => openRecordDialog(item)}
                       >
                         <div className="flex items-start justify-between">
                           <div>
-                            <p className="font-medium text-sm text-gray-900">{item.name}</p>
-                            <p className="text-xs text-gray-500 mt-0.5">
+                            <p className="font-medium text-sm text-foreground">{item.name}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">
                               {item.location}
                             </p>
-                            <p className="text-[11px] text-gray-400 mt-1">
+                            <p className="text-[11px] text-muted-foreground mt-1">
                               Range: {item.minTemp}°C - {item.maxTemp}°C
                             </p>
                           </div>
                           {isChecked ? (
-                            <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
-                              <CheckCircle className="h-4 w-4 text-emerald-600" />
+                            <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
+                              <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                             </div>
                           ) : (
-                            <div className="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
-                              <Plus className="h-4 w-4 text-gray-400 group-hover:text-emerald-600 transition-colors" />
+                            <div className="w-7 h-7 rounded-lg bg-muted flex items-center justify-center group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/50 transition-colors">
+                              <Plus className="h-4 w-4 text-muted-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
                             </div>
                           )}
                         </div>
                         {lastRecord && (
-                          <div className="mt-3 pt-3 border-t border-gray-100">
+                          <div className="mt-3 pt-3 border-t border-border">
                             <div className="flex items-center justify-between">
-                              <span className="text-sm font-medium text-gray-700">
+                              <span className="text-sm font-medium text-foreground">
                                 Last: {lastRecord.temperature}°C
                               </span>
                               <Badge
                                 className={
                                   lastRecord.isCompliant
-                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                                    : 'bg-red-50 text-red-700 border-red-100'
+                                    ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-emerald-100'
+                                    : 'bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 border-red-100'
                                 }
                               >
                                 {lastRecord.isCompliant
@@ -210,7 +210,7 @@ export function TemperatureContent({
                                   : 'Alert'}
                               </Badge>
                             </div>
-                            <p className="text-[11px] text-gray-400 mt-1">
+                            <p className="text-[11px] text-muted-foreground mt-1">
                               at {formatTime(lastRecord.recordedAt)}
                             </p>
                           </div>
@@ -225,9 +225,9 @@ export function TemperatureContent({
         </TabsContent>
 
         <TabsContent value="today">
-          <Card className="border-0 shadow-soft bg-white">
+          <Card className="border-0 shadow-soft">
             <CardHeader className="pb-4">
-              <CardTitle className="text-base font-semibold text-gray-900">Today&apos;s Records</CardTitle>
+              <CardTitle className="text-base font-semibold text-foreground">Today&apos;s Records</CardTitle>
               <CardDescription>
                 All temperature records for today ({todayRecords.length} total)
               </CardDescription>
@@ -235,114 +235,122 @@ export function TemperatureContent({
             <CardContent>
               {todayRecords.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                    <Thermometer className="h-6 w-6 text-gray-400" />
+                  <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
+                    <Thermometer className="h-6 w-6 text-muted-foreground" />
                   </div>
-                  <p className="text-gray-500 font-medium">No records yet today</p>
+                  <p className="text-muted-foreground font-medium">No records yet today</p>
                 </div>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-gray-100">
-                      <TableHead className="text-gray-500">Equipment</TableHead>
-                      <TableHead className="text-gray-500">Temperature</TableHead>
-                      <TableHead className="text-gray-500">Status</TableHead>
-                      <TableHead className="text-gray-500">Recorded By</TableHead>
-                      <TableHead className="text-gray-500">Time</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {todayRecords.map((record) => (
-                      <TableRow key={record.id} className="border-gray-50 hover:bg-gray-50/50">
-                        <TableCell>
-                          <div>
-                            <p className="font-medium text-sm text-gray-900">
-                              {record.equipment.name}
-                            </p>
-                            <p className="text-xs text-gray-400">
-                              {record.equipment.location}
-                            </p>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-semibold text-gray-900">
-                          {record.temperature}°C
-                        </TableCell>
-                        <TableCell>
-                          <Badge
-                            className={
-                              record.isCompliant
-                                ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                                : 'bg-red-50 text-red-700 border-red-100'
-                            }
-                          >
-                            {record.isCompliant ? 'Compliant' : 'Non-Compliant'}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-sm text-gray-600">{record.user.name}</TableCell>
-                        <TableCell className="text-sm text-gray-500">
-                          {formatTime(record.recordedAt)}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="overflow-x-auto -mx-4 sm:mx-0">
+                  <div className="min-w-[600px] sm:min-w-0">
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="border-border">
+                          <TableHead className="text-muted-foreground">Equipment</TableHead>
+                          <TableHead className="text-muted-foreground">Temperature</TableHead>
+                          <TableHead className="text-muted-foreground">Status</TableHead>
+                          <TableHead className="text-muted-foreground">Recorded By</TableHead>
+                          <TableHead className="text-muted-foreground">Time</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {todayRecords.map((record) => (
+                          <TableRow key={record.id} className="border-border hover:bg-muted/50">
+                            <TableCell>
+                              <div>
+                                <p className="font-medium text-sm text-foreground">
+                                  {record.equipment.name}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  {record.equipment.location}
+                                </p>
+                              </div>
+                            </TableCell>
+                            <TableCell className="font-semibold text-foreground">
+                              {record.temperature}°C
+                            </TableCell>
+                            <TableCell>
+                              <Badge
+                                className={
+                                  record.isCompliant
+                                    ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-emerald-100'
+                                    : 'bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 border-red-100'
+                                }
+                              >
+                                {record.isCompliant ? 'Compliant' : 'Non-Compliant'}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-sm text-foreground">{record.user.name}</TableCell>
+                            <TableCell className="text-sm text-muted-foreground">
+                              {formatTime(record.recordedAt)}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </div>
               )}
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="history">
-          <Card className="border-0 shadow-soft bg-white">
+          <Card className="border-0 shadow-soft">
             <CardHeader className="pb-4">
-              <CardTitle className="text-base font-semibold text-gray-900">Recent History</CardTitle>
+              <CardTitle className="text-base font-semibold text-foreground">Recent History</CardTitle>
               <CardDescription>
                 Temperature records from the last 7 days
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow className="border-gray-100">
-                    <TableHead className="text-gray-500">Equipment</TableHead>
-                    <TableHead className="text-gray-500">Temperature</TableHead>
-                    <TableHead className="text-gray-500">Status</TableHead>
-                    <TableHead className="text-gray-500">Recorded By</TableHead>
-                    <TableHead className="text-gray-500">Date & Time</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {recentRecords.map((record) => (
-                    <TableRow key={record.id} className="border-gray-50 hover:bg-gray-50/50">
-                      <TableCell>
-                        <div>
-                          <p className="font-medium text-sm text-gray-900">{record.equipment.name}</p>
-                          <p className="text-xs text-gray-400">
-                            {record.equipment.location}
-                          </p>
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-semibold text-gray-900">
-                        {record.temperature}°C
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          className={
-                            record.isCompliant
-                              ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                              : 'bg-red-50 text-red-700 border-red-100'
-                          }
-                        >
-                          {record.isCompliant ? 'Compliant' : 'Non-Compliant'}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-sm text-gray-600">{record.user.name}</TableCell>
-                      <TableCell className="text-sm text-gray-500">
-                        {formatDateTime(record.recordedAt)}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <div className="overflow-x-auto -mx-4 sm:mx-0">
+                <div className="min-w-[600px] sm:min-w-0">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-border">
+                        <TableHead className="text-muted-foreground">Equipment</TableHead>
+                        <TableHead className="text-muted-foreground">Temperature</TableHead>
+                        <TableHead className="text-muted-foreground">Status</TableHead>
+                        <TableHead className="text-muted-foreground">Recorded By</TableHead>
+                        <TableHead className="text-muted-foreground">Date & Time</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {recentRecords.map((record) => (
+                        <TableRow key={record.id} className="border-border hover:bg-muted/50">
+                          <TableCell>
+                            <div>
+                              <p className="font-medium text-sm text-foreground">{record.equipment.name}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {record.equipment.location}
+                              </p>
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-semibold text-foreground">
+                            {record.temperature}°C
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              className={
+                                record.isCompliant
+                                  ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-emerald-100'
+                                  : 'bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 border-red-100'
+                              }
+                            >
+                              {record.isCompliant ? 'Compliant' : 'Non-Compliant'}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-sm text-foreground">{record.user.name}</TableCell>
+                          <TableCell className="text-sm text-muted-foreground">
+                            {formatDateTime(record.recordedAt)}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -352,11 +360,11 @@ export function TemperatureContent({
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="rounded-2xl">
           <DialogHeader>
-            <DialogTitle className="text-lg font-semibold text-gray-900">Record Temperature</DialogTitle>
+            <DialogTitle className="text-lg font-semibold text-foreground">Record Temperature</DialogTitle>
             <DialogDescription>
               {selectedEquipment && (
                 <>
-                  Recording temperature for <strong className="text-gray-700">{selectedEquipment.name}</strong>
+                  Recording temperature for <strong className="text-foreground">{selectedEquipment.name}</strong>
                   <br />
                   Acceptable range: {selectedEquipment.minTemp}°C -{' '}
                   {selectedEquipment.maxTemp}°C
@@ -366,7 +374,7 @@ export function TemperatureContent({
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="temperature" className="text-sm font-medium text-gray-700">Temperature (°C)</Label>
+              <Label htmlFor="temperature" className="text-sm font-medium text-foreground">Temperature (°C)</Label>
               <Input
                 id="temperature"
                 type="number"
@@ -379,7 +387,7 @@ export function TemperatureContent({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="notes" className="text-sm font-medium text-gray-700">Notes (optional)</Label>
+              <Label htmlFor="notes" className="text-sm font-medium text-foreground">Notes (optional)</Label>
               <Input
                 id="notes"
                 value={notes}
@@ -388,7 +396,7 @@ export function TemperatureContent({
               />
             </div>
             {selectedEquipment && temperature && (
-              <div className="p-3.5 rounded-xl bg-gray-50">
+              <div className="p-3.5 rounded-xl bg-muted/50">
                 {(() => {
                   const temp = parseFloat(temperature)
                   const { status } = getTemperatureStatus(

@@ -81,10 +81,10 @@ const typeLabels: Record<string, string> = {
 }
 
 const priorityColors: Record<string, string> = {
-  LOW: 'bg-sky-50 text-sky-700 border-sky-100',
-  NORMAL: 'bg-gray-50 text-gray-600 border-gray-100',
-  HIGH: 'bg-amber-50 text-amber-700 border-amber-100',
-  URGENT: 'bg-red-50 text-red-700 border-red-100',
+  LOW: 'bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-400 border-sky-100',
+  NORMAL: 'bg-muted/50 text-foreground border-border',
+  HIGH: 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border-amber-100',
+  URGENT: 'bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 border-red-100',
 }
 
 export function TasksContent({
@@ -158,19 +158,19 @@ export function TasksContent({
   const completedTasks = tasks.filter((t) => t.isCompleted)
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Daily Tasks</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Daily Tasks</h1>
+          <p className="text-muted-foreground mt-1">
             Manage opening, closing, and daily compliance tasks
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           {(userRole === 'MANAGER' || userRole === 'OWNER' || userRole === 'FRANCHISE_ADMIN') && (
             <>
               <Select value={selectedSchedule} onValueChange={setSelectedSchedule}>
-                <SelectTrigger className="w-[200px]">
+                <SelectTrigger className="w-full sm:w-[200px]">
                   <SelectValue placeholder="Select template" />
                 </SelectTrigger>
                 <SelectContent>
@@ -184,7 +184,7 @@ export function TasksContent({
               <Button
                 onClick={handleCreateFromSchedule}
                 disabled={!selectedSchedule || isCreating}
-                className="bg-emerald-600 hover:bg-emerald-700 rounded-xl"
+                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 rounded-xl"
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Create Tasks
@@ -195,59 +195,59 @@ export function TasksContent({
       </div>
 
       {/* Stats Overview */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Tasks</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">{tasks.length}</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Tasks</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{tasks.length}</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <ClipboardList className="h-5 w-5 text-gray-500" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <ClipboardList className="h-5 w-5 text-muted-foreground" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Pending</p>
-                <p className="text-3xl font-bold text-amber-600 mt-2">{pendingTasks.length}</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Pending</p>
+                <p className="text-2xl sm:text-3xl font-bold text-amber-600 mt-2">{pendingTasks.length}</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <Clock className="h-5 w-5 text-amber-500" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Completed</p>
-                <p className="text-3xl font-bold text-emerald-600 mt-2">{completedTasks.length}</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Completed</p>
+                <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">{completedTasks.length}</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <CheckCircle2 className="h-5 w-5 text-emerald-500" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-          <CardContent className="p-5">
+        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Completion Rate</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Completion Rate</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
                   {tasks.length > 0
                     ? Math.round((completedTasks.length / tasks.length) * 100)
                     : 0}
                   %
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <Sparkles className="h-5 w-5 text-violet-500" />
               </div>
             </div>
@@ -256,7 +256,7 @@ export function TasksContent({
       </div>
 
       <Tabs defaultValue="all" className="space-y-6">
-        <TabsList>
+        <TabsList className="overflow-x-auto scrollbar-hide">
           <TabsTrigger value="all">All Tasks</TabsTrigger>
           <TabsTrigger value="pending">Pending</TabsTrigger>
           <TabsTrigger value="completed">Completed</TabsTrigger>
@@ -271,11 +271,11 @@ export function TasksContent({
           {tasks.length === 0 ? (
             <Card className="border-0 shadow-soft">
               <CardContent className="py-16 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                  <ClipboardList className="h-7 w-7 text-gray-400" />
+                <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-4">
+                  <ClipboardList className="h-7 w-7 text-muted-foreground" />
                 </div>
-                <p className="text-gray-500 font-medium">No tasks for today yet</p>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-muted-foreground font-medium">No tasks for today yet</p>
+                <p className="text-sm text-muted-foreground mt-1">
                   Select a template above to create tasks
                 </p>
               </CardContent>
@@ -297,10 +297,10 @@ export function TasksContent({
           {pendingTasks.length === 0 ? (
             <Card className="border-0 shadow-soft">
               <CardContent className="py-16 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 className="h-7 w-7 text-emerald-500" />
                 </div>
-                <p className="text-gray-500 font-medium">All tasks completed! Great job!</p>
+                <p className="text-muted-foreground font-medium">All tasks completed! Great job!</p>
               </CardContent>
             </Card>
           ) : (
@@ -320,7 +320,7 @@ export function TasksContent({
           {completedTasks.length === 0 ? (
             <Card className="border-0 shadow-soft">
               <CardContent className="py-16 text-center">
-                <p className="text-gray-400">No completed tasks yet</p>
+                <p className="text-muted-foreground">No completed tasks yet</p>
               </CardContent>
             </Card>
           ) : (
@@ -358,7 +358,7 @@ function TaskCard({
   onComplete?: () => void
 }) {
   return (
-    <Card className={`border-0 shadow-soft bg-white hover:shadow-soft-md transition-all duration-200 ${task.isCompleted ? 'opacity-70' : ''}`}>
+    <Card className={`border-0 shadow-soft hover:shadow-soft-md transition-all duration-200 ${task.isCompleted ? 'opacity-70' : ''}`}>
       <CardContent className="p-4">
         <div className="flex items-start gap-4">
           {onComplete && !task.isCompleted && (
@@ -376,13 +376,13 @@ function TaskCard({
               <div>
                 <p
                   className={`font-medium text-sm ${
-                    task.isCompleted ? 'line-through text-gray-400' : 'text-gray-900'
+                    task.isCompleted ? 'line-through text-muted-foreground' : 'text-foreground'
                   }`}
                 >
                   {task.title}
                 </p>
                 {task.description && (
-                  <p className="text-sm text-gray-500 mt-0.5">
+                  <p className="text-sm text-muted-foreground mt-0.5">
                     {task.description}
                   </p>
                 )}
@@ -391,7 +391,7 @@ function TaskCard({
                 {task.priority}
               </Badge>
             </div>
-            <div className="flex items-center gap-4 mt-3 text-xs text-gray-400">
+            <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
               {task.dueTime && (
                 <div className="flex items-center gap-1">
                   <Clock className="h-3.5 w-3.5" />
@@ -405,13 +405,13 @@ function TaskCard({
                 </div>
               )}
               {task.type && (
-                <Badge variant="outline" className="text-[10px] border-gray-200 text-gray-500">
+                <Badge variant="outline" className="text-[10px] border-border text-muted-foreground">
                   {typeLabels[task.type] || task.type}
                 </Badge>
               )}
             </div>
             {task.isCompleted && task.completedAt && (
-              <div className="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-400">
+              <div className="mt-3 pt-3 border-t border-border text-xs text-muted-foreground">
                 Completed at {formatTime(task.completedAt)}
               </div>
             )}

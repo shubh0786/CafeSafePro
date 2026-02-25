@@ -21,8 +21,8 @@ export default async function StaffPage() {
     return (
       <DashboardShell>
         <div className="flex flex-col items-center justify-center h-96">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">No Store Access</h2>
-          <p className="text-gray-500">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">No Store Access</h2>
+          <p className="text-muted-foreground">
             You don&apos;t have access to any stores.
           </p>
         </div>
@@ -41,11 +41,11 @@ export default async function StaffPage() {
 
   return (
     <DashboardShell>
-      <div className="space-y-8">
-        <div className="flex items-center justify-between">
+      <div className="space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Staff Management</h1>
-            <p className="text-gray-500 mt-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Staff Management</h1>
+            <p className="text-muted-foreground mt-1">
               Manage staff members and their access levels
             </p>
           </div>
@@ -56,60 +56,60 @@ export default async function StaffPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Staff</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">{storeUsers.length}</p>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Staff</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{storeUsers.length}</p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Users className="h-5 w-5 text-gray-500" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Users className="h-5 w-5 text-muted-foreground" />
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Active</p>
-                  <p className="text-3xl font-bold text-emerald-600 mt-2">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Active</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">
                     {storeUsers.filter((su) => su.user.isActive).length}
                   </p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <UserCheck className="h-5 w-5 text-emerald-500" />
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Managers</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Managers</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
                     {storeUsers.filter((su) => su.role === 'MANAGER').length}
                   </p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <UserCog className="h-5 w-5 text-violet-500" />
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-5">
+          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+            <CardContent className="p-4 sm:p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Staff</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Staff</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
                     {storeUsers.filter((su) => su.role === 'STAFF').length}
                   </p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <UserPlus className="h-5 w-5 text-sky-500" />
                 </div>
               </div>
@@ -118,9 +118,9 @@ export default async function StaffPage() {
         </div>
 
         {/* Staff List */}
-        <Card className="border-0 shadow-soft bg-white">
+        <Card className="border-0 shadow-soft">
           <CardHeader className="pb-4">
-            <CardTitle className="text-base font-semibold text-gray-900">Staff Members</CardTitle>
+            <CardTitle className="text-base font-semibold text-foreground">Staff Members</CardTitle>
             <CardDescription>
               All staff with access to this store
             </CardDescription>
@@ -129,19 +129,19 @@ export default async function StaffPage() {
             <div className="space-y-2">
               {storeUsers.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                    <Users className="h-6 w-6 text-gray-400" />
+                  <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
+                    <Users className="h-6 w-6 text-muted-foreground" />
                   </div>
-                  <p className="text-gray-500 font-medium">No staff members found</p>
+                  <p className="text-muted-foreground font-medium">No staff members found</p>
                 </div>
               ) : (
                 storeUsers.map((storeUser) => (
                   <div
                     key={storeUser.id}
-                    className="flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-all duration-200"
+                    className="flex items-center justify-between p-4 rounded-xl hover:bg-muted/50 transition-all duration-200"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-sm">
+                    <div className="flex items-center gap-4 min-w-0">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-sm shrink-0">
                         <span className="text-white font-semibold text-sm">
                           {storeUser.user.name
                             ?.split(' ')
@@ -150,23 +150,23 @@ export default async function StaffPage() {
                             .toUpperCase() || 'U'}
                         </span>
                       </div>
-                      <div>
-                        <p className="font-medium text-sm text-gray-900">{storeUser.user.name}</p>
-                        <div className="flex items-center gap-1.5 text-xs text-gray-400 mt-0.5">
-                          <Mail className="h-3 w-3" />
-                          {storeUser.user.email}
+                      <div className="min-w-0">
+                        <p className="font-medium text-sm text-foreground truncate">{storeUser.user.name}</p>
+                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
+                          <Mail className="h-3 w-3 shrink-0" />
+                          <span className="truncate">{storeUser.user.email}</span>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 shrink-0">
                       <Badge className={getRoleColor(storeUser.role)}>
                         {getRoleLabel(storeUser.role)}
                       </Badge>
                       <Badge
                         className={
                           storeUser.user.isActive
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                            : 'bg-gray-50 text-gray-600 border-gray-100'
+                            ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-border'
+                            : 'bg-muted/50 text-foreground border-border'
                         }
                       >
                         {storeUser.user.isActive ? 'Active' : 'Inactive'}

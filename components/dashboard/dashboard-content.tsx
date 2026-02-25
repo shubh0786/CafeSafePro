@@ -46,115 +46,109 @@ export function DashboardContent({
       : 0
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Welcome Section */}
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
-              Welcome back
-            </h1>
-            <Sparkles className="h-5 w-5 text-amber-400" />
-          </div>
-          <p className="text-gray-500">
-            Here&apos;s what&apos;s happening at <span className="font-medium text-gray-700">{storeName}</span> today
-          </p>
+      <div>
+        <div className="flex items-center gap-2 mb-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+            Welcome back
+          </h1>
+          <Sparkles className="h-5 w-5 text-amber-400" />
         </div>
+        <p className="text-sm sm:text-base text-muted-foreground">
+          Here&apos;s what&apos;s happening at <span className="font-medium text-foreground">{storeName}</span> today
+        </p>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Pending Tasks */}
-        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft bg-white overflow-hidden">
-          <CardContent className="p-5">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft overflow-hidden">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Pending Tasks
                 </p>
-                <p className="text-3xl font-bold text-gray-900 mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
                   {stats.pendingTasks}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  {stats.completedTasks} completed today
+                <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+                  {stats.completedTasks} completed
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <ClipboardList className="h-5 w-5 text-amber-500" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <ClipboardList className="h-4 w-4 sm:h-5 sm:w-5 text-amber-500" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Temperature Checks */}
-        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft bg-white overflow-hidden">
-          <CardContent className="p-5">
+        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft overflow-hidden">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Temp Checks
                 </p>
-                <p className="text-3xl font-bold text-gray-900 mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
                   {stats.todayTempRecords}
                 </p>
                 <div className="flex items-center gap-1 mt-1">
                   {stats.nonCompliantTemps > 0 ? (
                     <>
                       <TrendingDown className="h-3 w-3 text-red-500" />
-                      <span className="text-xs text-red-500 font-medium">
-                        {stats.nonCompliantTemps} non-compliant
+                      <span className="text-[10px] sm:text-xs text-red-500 font-medium">
+                        {stats.nonCompliantTemps} alert
                       </span>
                     </>
                   ) : (
                     <>
                       <TrendingUp className="h-3 w-3 text-emerald-500" />
-                      <span className="text-xs text-emerald-500 font-medium">All compliant</span>
+                      <span className="text-[10px] sm:text-xs text-emerald-500 font-medium">All OK</span>
                     </>
                   )}
                 </div>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Thermometer className="h-5 w-5 text-sky-500" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Thermometer className="h-4 w-4 sm:h-5 sm:w-5 text-sky-500" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Equipment */}
-        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft bg-white overflow-hidden">
-          <CardContent className="p-5">
+        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft overflow-hidden">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Equipment
                 </p>
-                <p className="text-3xl font-bold text-gray-900 mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
                   {stats.equipmentCount}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">Active monitoring</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">Monitoring</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Wrench className="h-5 w-5 text-violet-500" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Wrench className="h-4 w-4 sm:h-5 sm:w-5 text-violet-500" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Staff */}
-        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft bg-white overflow-hidden">
-          <CardContent className="p-5">
+        <Card className="group hover:shadow-soft-md transition-all duration-300 border-0 shadow-soft overflow-hidden">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Staff
                 </p>
-                <p className="text-3xl font-bold text-gray-900 mt-2 animate-count-up">
+                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-1 sm:mt-2 animate-count-up">
                   {stats.staffCount}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">Team members</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">Members</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Users className="h-5 w-5 text-emerald-500" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />
               </div>
             </div>
           </CardContent>
@@ -162,11 +156,11 @@ export function DashboardContent({
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Task Completion */}
-        <Card className="lg:col-span-2 border-0 shadow-soft bg-white">
+        <Card className="lg:col-span-2 border-0 shadow-soft">
           <CardHeader className="pb-4">
-            <CardTitle className="text-base font-semibold text-gray-900">Task Completion</CardTitle>
+            <CardTitle className="text-base font-semibold text-foreground">Task Completion</CardTitle>
             <CardDescription>
               Today&apos;s task completion progress
             </CardDescription>
@@ -175,14 +169,14 @@ export function DashboardContent({
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between mb-2.5">
-                  <span className="text-sm font-semibold text-gray-900">
+                  <span className="text-sm font-semibold text-foreground">
                     {taskCompletionRate}% Complete
                   </span>
-                  <span className="text-sm text-gray-500 font-medium">
+                  <span className="text-sm text-muted-foreground font-medium">
                     {stats.completedTasks} / {stats.completedTasks + stats.pendingTasks}
                   </span>
                 </div>
-                <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-3 bg-muted rounded-full overflow-hidden">
                   <div
                     className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-700 ease-out relative"
                     style={{ width: `${taskCompletionRate}%` }}
@@ -191,14 +185,14 @@ export function DashboardContent({
                   </div>
                 </div>
               </div>
-              <div className="flex gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Button asChild className="bg-emerald-600 hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all duration-200 rounded-xl">
                   <Link href="/tasks">
                     View Tasks
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button variant="outline" asChild className="rounded-xl border-gray-200 hover:bg-gray-50">
+                <Button variant="outline" asChild className="rounded-xl">
                   <Link href="/tasks">Complete Tasks</Link>
                 </Button>
               </div>
@@ -207,14 +201,14 @@ export function DashboardContent({
         </Card>
 
         {/* Quick Actions */}
-        <Card className="border-0 shadow-soft bg-white">
+        <Card className="border-0 shadow-soft">
           <CardHeader className="pb-4">
-            <CardTitle className="text-base font-semibold text-gray-900">Quick Actions</CardTitle>
+            <CardTitle className="text-base font-semibold text-foreground">Quick Actions</CardTitle>
             <CardDescription>Common daily activities</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <Button
-              className="w-full justify-start rounded-xl h-11 bg-sky-50 text-sky-700 hover:bg-sky-100 border-0 shadow-none font-medium transition-all duration-200"
+              className="w-full justify-start rounded-xl h-11 bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-950 border-0 shadow-none font-medium transition-all duration-200"
               variant="outline"
               asChild
             >
@@ -224,7 +218,7 @@ export function DashboardContent({
               </Link>
             </Button>
             <Button
-              className="w-full justify-start rounded-xl h-11 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border-0 shadow-none font-medium transition-all duration-200"
+              className="w-full justify-start rounded-xl h-11 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-950 border-0 shadow-none font-medium transition-all duration-200"
               variant="outline"
               asChild
             >
@@ -234,7 +228,7 @@ export function DashboardContent({
               </Link>
             </Button>
             <Button
-              className="w-full justify-start rounded-xl h-11 bg-amber-50 text-amber-700 hover:bg-amber-100 border-0 shadow-none font-medium transition-all duration-200"
+              className="w-full justify-start rounded-xl h-11 bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-950 border-0 shadow-none font-medium transition-all duration-200"
               variant="outline"
               asChild
             >
@@ -247,14 +241,14 @@ export function DashboardContent({
         </Card>
 
         {/* Recent Records */}
-        <Card className="lg:col-span-3 border-0 shadow-soft bg-white">
+        <Card className="lg:col-span-3 border-0 shadow-soft">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-base font-semibold text-gray-900">Recent Records</CardTitle>
+                <CardTitle className="text-base font-semibold text-foreground">Recent Records</CardTitle>
                 <CardDescription>Latest compliance records</CardDescription>
               </div>
-              <Button variant="outline" size="sm" asChild className="rounded-xl border-gray-200 text-xs">
+              <Button variant="outline" size="sm" asChild className="rounded-xl text-xs">
                 <Link href="/records">View All</Link>
               </Button>
             </div>
@@ -263,11 +257,11 @@ export function DashboardContent({
             <div className="space-y-2">
               {recentRecords.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                    <ClipboardList className="h-6 w-6 text-gray-400" />
+                  <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
+                    <ClipboardList className="h-6 w-6 text-muted-foreground" />
                   </div>
-                  <p className="text-gray-500 font-medium">No records yet</p>
-                  <p className="text-gray-400 text-sm mt-1">
+                  <p className="text-foreground font-medium">No records yet</p>
+                  <p className="text-muted-foreground text-sm mt-1">
                     Start by creating your first compliance record
                   </p>
                 </div>
@@ -275,11 +269,11 @@ export function DashboardContent({
                 recentRecords.map((record) => (
                   <div
                     key={record.id}
-                    className="flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group"
+                    className="flex items-center justify-between p-3 sm:p-4 rounded-xl hover:bg-muted/50 transition-all duration-200 group"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                       <div
-                        className={`w-1.5 h-10 rounded-full ${
+                        className={`w-1.5 h-8 sm:h-10 rounded-full flex-shrink-0 ${
                           record.status === 'COMPLIANT'
                             ? 'bg-emerald-400'
                             : record.status === 'NON_COMPLIANT'
@@ -287,18 +281,19 @@ export function DashboardContent({
                             : 'bg-amber-400'
                         }`}
                       />
-                      <div>
-                        <p className="font-medium text-sm text-gray-900">
+                      <div className="min-w-0">
+                        <p className="font-medium text-sm text-foreground truncate">
                           {record.type.replace(/_/g, ' ')}
                         </p>
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="text-xs text-muted-foreground mt-0.5 truncate">
                           By {record.creator?.name || 'Unknown'} &middot;{' '}
                           {formatDateTime(record.createdAt)}
                         </p>
                       </div>
                     </div>
-                    <Badge className={getStatusColor(record.status)}>
-                      {record.status.replace(/_/g, ' ')}
+                    <Badge className={`${getStatusColor(record.status)} flex-shrink-0 ml-2`}>
+                      <span className="hidden sm:inline">{record.status.replace(/_/g, ' ')}</span>
+                      <span className="sm:hidden">{record.status === 'COMPLIANT' ? 'OK' : record.status === 'NON_COMPLIANT' ? 'Alert' : 'Review'}</span>
                     </Badge>
                   </div>
                 ))
