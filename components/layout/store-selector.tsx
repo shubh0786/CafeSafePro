@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Store } from 'lucide-react'
 
 export function StoreSelector() {
   const { data: session } = useSession()
@@ -21,9 +22,12 @@ export function StoreSelector() {
   }
 
   return (
-    <div className="px-6 py-3 border-b bg-muted/50">
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-muted-foreground">Selected Store:</span>
+    <div className="px-6 lg:px-8 py-3 border-b border-gray-100 bg-white/60 backdrop-blur-sm">
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <Store className="h-4 w-4 text-gray-400" />
+          <span className="font-medium">Store:</span>
+        </div>
         <Select
           value={selectedStore?.id}
           onValueChange={(value) => {
@@ -33,7 +37,7 @@ export function StoreSelector() {
             }
           }}
         >
-          <SelectTrigger className="w-[280px]">
+          <SelectTrigger className="w-[280px] h-9 rounded-xl border-gray-200 bg-white text-sm">
             <SelectValue placeholder="Select a store" />
           </SelectTrigger>
           <SelectContent>

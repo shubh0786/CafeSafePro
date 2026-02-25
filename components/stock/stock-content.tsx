@@ -144,22 +144,22 @@ export function StockContent({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Stock & Traceability</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Stock & Traceability</h1>
+          <p className="text-gray-500 mt-1">
             Track deliveries, batch numbers, and expiry dates for MPI compliance
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
               <Plus className="mr-2 h-4 w-4" />
               Record Delivery
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-lg">
+          <DialogContent className="max-w-lg rounded-2xl">
             <DialogHeader>
               <DialogTitle>Record New Delivery</DialogTitle>
               <DialogDescription>
@@ -251,10 +251,11 @@ export function StockContent({
                   type="button"
                   variant="outline"
                   onClick={() => setDialogOpen(false)}
+                  className="rounded-xl"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
                   {isSubmitting ? 'Adding...' : 'Add Stock Item'}
                 </Button>
               </div>
@@ -265,9 +266,9 @@ export function StockContent({
 
       {/* Expiry Warnings */}
       {expiringSoon.length > 0 && (
-        <Card className="border-yellow-200 bg-yellow-50">
+        <Card className="border-amber-100 bg-amber-50/50 shadow-none">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-yellow-800">
+            <CardTitle className="flex items-center gap-2 text-amber-800">
               <AlertCircle className="h-5 w-5" />
               Expiring Soon ({expiringSoon.length})
             </CardTitle>
@@ -277,16 +278,16 @@ export function StockContent({
               {expiringSoon.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-3 bg-white rounded-lg"
+                  className="flex items-center justify-between p-3 bg-white rounded-xl border border-amber-100"
                 >
                   <div>
                     <p className="font-medium">{item.name}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-gray-500">
                       Batch: {item.batchNumber} • Supplier:{' '}
                       {item.supplier?.name || 'Unknown'}
                     </p>
                   </div>
-                  <Badge className="bg-red-100 text-red-800">
+                  <Badge className="bg-red-50 text-red-700 border border-red-100">
                     Expires {item.expiryDate ? formatDate(item.expiryDate) : 'N/A'}
                   </Badge>
                 </div>
@@ -298,54 +299,70 @@ export function StockContent({
 
       {/* Stock Overview */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Items</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stockItems.length}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Stock</CardTitle>
-            <CheckCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">
-              {activeItems.length}
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Items</p>
+                <div className="text-3xl font-bold text-gray-900 mt-2">{stockItems.length}</div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Package className="h-5 w-5 text-gray-500" />
+              </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Suppliers</CardTitle>
-            <Truck className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{suppliers.length}</div>
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Active Stock</p>
+                <div className="text-3xl font-bold text-emerald-600 mt-2">{activeItems.length}</div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <CheckCircle className="h-5 w-5 text-emerald-600" />
+              </div>
+            </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Expiring Soon</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div
-              className={`text-2xl font-bold ${
-                expiringSoon.length > 0 ? 'text-red-600' : 'text-green-600'
-              }`}
-            >
-              {expiringSoon.length}
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Suppliers</p>
+                <div className="text-3xl font-bold text-gray-900 mt-2">{suppliers.length}</div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Truck className="h-5 w-5 text-gray-500" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Expiring Soon</p>
+                <div
+                  className={`text-3xl font-bold mt-2 ${
+                    expiringSoon.length > 0 ? 'text-amber-600' : 'text-emerald-600'
+                  }`}
+                >
+                  {expiringSoon.length}
+                </div>
+              </div>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ${
+                expiringSoon.length > 0 ? 'bg-amber-50' : 'bg-emerald-50'
+              }`}>
+                <Calendar className={`h-5 w-5 ${expiringSoon.length > 0 ? 'text-amber-600' : 'text-emerald-600'}`} />
+              </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
       {/* Stock Items Table */}
-      <Card>
+      <Card className="border-0 shadow-soft bg-white">
         <CardHeader>
           <CardTitle>Stock Inventory</CardTitle>
           <CardDescription>View and manage all stock items</CardDescription>
@@ -353,12 +370,12 @@ export function StockContent({
         <CardContent>
           {/* Search */}
           <div className="relative mb-6">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Search by product, batch number, or supplier..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9"
+              className="pl-10"
             />
           </div>
 
@@ -409,8 +426,10 @@ function StockTable({ items }: { items: StockItem[] }) {
         {items.length === 0 ? (
           <TableRow>
             <TableCell colSpan={7} className="text-center py-8">
-              <Archive className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No stock items found</p>
+              <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                <Archive className="h-6 w-6 text-gray-400" />
+              </div>
+              <p className="text-gray-500 font-medium">No stock items found</p>
             </TableCell>
           </TableRow>
         ) : (
@@ -429,7 +448,7 @@ function StockTable({ items }: { items: StockItem[] }) {
                 </TableCell>
                 <TableCell>{item.supplier?.name || 'Unknown'}</TableCell>
                 <TableCell>
-                  <code className="bg-muted px-1 py-0.5 rounded text-xs">
+                  <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">
                     {item.batchNumber || 'N/A'}
                   </code>
                 </TableCell>
@@ -444,27 +463,27 @@ function StockTable({ items }: { items: StockItem[] }) {
                         isExpired
                           ? 'text-red-600 font-medium'
                           : isExpiringSoon
-                          ? 'text-yellow-600 font-medium'
+                          ? 'text-amber-600 font-medium'
                           : ''
                       }
                     >
                       {formatDate(item.expiryDate)}
                     </span>
                   ) : (
-                    <span className="text-muted-foreground">N/A</span>
+                    <span className="text-gray-500">N/A</span>
                   )}
                 </TableCell>
                 <TableCell>
                   {item.isUsed ? (
-                    <Badge className="bg-gray-100 text-gray-800">Used</Badge>
+                    <Badge className="bg-gray-50 text-gray-600 border border-gray-100">Used</Badge>
                   ) : isExpired ? (
-                    <Badge className="bg-red-100 text-red-800">Expired</Badge>
+                    <Badge className="bg-red-50 text-red-700 border border-red-100">Expired</Badge>
                   ) : isExpiringSoon ? (
-                    <Badge className="bg-yellow-100 text-yellow-800">
+                    <Badge className="bg-amber-50 text-amber-700 border border-amber-100">
                       Expiring Soon
                     </Badge>
                   ) : (
-                    <Badge className="bg-green-100 text-green-800">Active</Badge>
+                    <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-100">Active</Badge>
                   )}
                 </TableCell>
               </TableRow>

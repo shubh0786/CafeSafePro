@@ -150,23 +150,23 @@ export function EquipmentContent({
   )
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Equipment</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Equipment</h1>
+          <p className="text-gray-500 mt-1">
             Manage equipment for temperature monitoring and maintenance tracking
           </p>
         </div>
         {canAddEquipment && (
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Equipment
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-lg">
+            <DialogContent className="max-w-lg rounded-2xl">
               <DialogHeader>
                 <DialogTitle>Add New Equipment</DialogTitle>
                 <DialogDescription>
@@ -250,11 +250,12 @@ export function EquipmentContent({
                   <Button
                     type="button"
                     variant="outline"
+                    className="rounded-xl"
                     onClick={() => setDialogOpen(false)}
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={isSubmitting}>
+                  <Button type="submit" disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700 rounded-xl">
                     {isSubmitting ? 'Adding...' : 'Add Equipment'}
                   </Button>
                 </div>
@@ -266,9 +267,9 @@ export function EquipmentContent({
 
       {/* Maintenance Alerts */}
       {needsService.length > 0 && (
-        <Card className="border-orange-200 bg-orange-50">
+        <Card className="border-amber-100 bg-amber-50/50 shadow-none">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-orange-800">
+            <CardTitle className="flex items-center gap-2 text-amber-800">
               <AlertCircle className="h-5 w-5" />
               Upcoming Maintenance ({needsService.length})
             </CardTitle>
@@ -278,15 +279,15 @@ export function EquipmentContent({
               {needsService.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-3 bg-white rounded-lg"
+                  className="flex items-center justify-between p-3 bg-white rounded-xl border border-amber-100"
                 >
                   <div>
                     <p className="font-medium">{item.name}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-gray-500">
                       {item.location}
                     </p>
                   </div>
-                  <Badge className="bg-orange-100 text-orange-800">
+                  <Badge className="bg-amber-50 text-amber-700 border border-amber-100">
                     Service due {item.nextService ? formatDate(item.nextService) : 'N/A'}
                   </Badge>
                 </div>
@@ -298,64 +299,82 @@ export function EquipmentContent({
 
       {/* Equipment Overview */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Equipment</CardTitle>
-            <Wrench className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{equipment.length}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active</CardTitle>
-            <CheckCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">
-              {equipment.filter((e) => e.isActive).length}
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Equipment</p>
+                <div className="text-3xl font-bold text-gray-900 mt-2">{equipment.length}</div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Wrench className="h-4 w-4 text-gray-600" />
+              </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Needs Service</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div
-              className={`text-2xl font-bold ${
-                needsService.length > 0 ? 'text-orange-600' : 'text-green-600'
-              }`}
-            >
-              {needsService.length}
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Active</p>
+                <div className="text-3xl font-bold text-emerald-600 mt-2">
+                  {equipment.filter((e) => e.isActive).length}
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <CheckCircle className="h-4 w-4 text-emerald-600" />
+              </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Temp Monitored</CardTitle>
-            <Thermometer className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {equipment.filter((e) => e.minTemp !== null && e.maxTemp !== null).length}
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Needs Service</p>
+                <div
+                  className={`text-3xl font-bold mt-2 ${
+                    needsService.length > 0 ? 'text-amber-600' : 'text-emerald-600'
+                  }`}
+                >
+                  {needsService.length}
+                </div>
+              </div>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ${
+                needsService.length > 0 ? 'bg-amber-50' : 'bg-emerald-50'
+              }`}>
+                <Clock className={`h-4 w-4 ${needsService.length > 0 ? 'text-amber-600' : 'text-emerald-600'}`} />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="border-0 shadow-soft bg-white group hover:shadow-soft-md transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Temp Monitored</p>
+                <div className="text-3xl font-bold text-gray-900 mt-2">
+                  {equipment.filter((e) => e.minTemp !== null && e.maxTemp !== null).length}
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Thermometer className="h-4 w-4 text-gray-600" />
+              </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
       {/* Equipment by Category */}
-      <div className="space-y-6">
+      <div className="space-y-8">
         {Object.entries(equipmentByCategory).map(([category, items]) => (
-          <Card key={category}>
+          <Card key={category} className="border-0 shadow-soft bg-white">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 {categoryIcons[category]}
                 {categoryLabels[category] || category}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-gray-500">
                 {items.length} equipment(s) in this category
               </CardDescription>
             </CardHeader>
@@ -368,12 +387,12 @@ export function EquipmentContent({
                     new Date(item.nextService) <= thirtyDaysFromNow
 
                   return (
-                    <Card key={item.id} className={item.isActive ? '' : 'opacity-50'}>
+                    <Card key={item.id} className={`border-gray-100 hover:shadow-soft-md transition-all duration-200 ${item.isActive ? '' : 'opacity-50'}`}>
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between">
                           <div>
                             <p className="font-medium">{item.name}</p>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-gray-500">
                               {item.location}
                             </p>
                           </div>
@@ -384,19 +403,19 @@ export function EquipmentContent({
 
                         {item.minTemp !== null && item.maxTemp !== null && (
                           <div className="mt-3 pt-3 border-t">
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-gray-400">
                               Range: {item.minTemp}°C - {item.maxTemp}°C
                             </p>
                             {lastRecord && (
                               <div className="flex items-center justify-between mt-2">
-                                <span className="text-sm">
+                                <span className="text-sm text-gray-400">
                                   Last: {lastRecord.temperature}°C
                                 </span>
                                 <Badge
                                   className={
                                     lastRecord.isCompliant
-                                      ? 'bg-green-100 text-green-800'
-                                      : 'bg-red-100 text-red-800'
+                                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+                                      : 'bg-red-50 text-red-700 border border-red-100'
                                   }
                                 >
                                   {lastRecord.isCompliant ? 'OK' : 'Alert'}
@@ -407,21 +426,21 @@ export function EquipmentContent({
                         )}
 
                         {item.serialNumber && (
-                          <p className="text-xs text-muted-foreground mt-2">
+                          <p className="text-xs text-gray-400 mt-2">
                             S/N: {item.serialNumber}
                           </p>
                         )}
 
                         {needsMaintenance && (
                           <div className="mt-3 pt-3 border-t">
-                            <Badge className="bg-orange-100 text-orange-800 w-full justify-center">
+                            <Badge className="bg-amber-50 text-amber-700 border border-amber-100 w-full justify-center">
                               Service due {formatDate(item.nextService!)}
                             </Badge>
                           </div>
                         )}
 
                         {item.lastServiced && (
-                          <p className="text-xs text-muted-foreground mt-2">
+                          <p className="text-xs text-gray-400 mt-2">
                             Last serviced: {formatDate(item.lastServiced)}
                           </p>
                         )}

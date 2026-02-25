@@ -42,22 +42,22 @@ export function getRoleLabel(role: string): string {
 
 export function getRoleColor(role: string): string {
   const colors: Record<string, string> = {
-    STAFF: 'bg-blue-100 text-blue-800',
-    MANAGER: 'bg-purple-100 text-purple-800',
-    OWNER: 'bg-orange-100 text-orange-800',
-    FRANCHISE_ADMIN: 'bg-red-100 text-red-800',
+    STAFF: 'bg-sky-50 text-sky-700 border-sky-100',
+    MANAGER: 'bg-violet-50 text-violet-700 border-violet-100',
+    OWNER: 'bg-amber-50 text-amber-700 border-amber-100',
+    FRANCHISE_ADMIN: 'bg-rose-50 text-rose-700 border-rose-100',
   }
-  return colors[role] || 'bg-gray-100 text-gray-800'
+  return colors[role] || 'bg-gray-50 text-gray-700 border-gray-100'
 }
 
 export function getStatusColor(status: string): string {
   const colors: Record<string, string> = {
-    COMPLIANT: 'bg-green-100 text-green-800',
-    NON_COMPLIANT: 'bg-red-100 text-red-800',
-    PENDING_REVIEW: 'bg-yellow-100 text-yellow-800',
-    CORRECTED: 'bg-blue-100 text-blue-800',
+    COMPLIANT: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+    NON_COMPLIANT: 'bg-red-50 text-red-700 border-red-100',
+    PENDING_REVIEW: 'bg-amber-50 text-amber-700 border-amber-100',
+    CORRECTED: 'bg-sky-50 text-sky-700 border-sky-100',
   }
-  return colors[status] || 'bg-gray-100 text-gray-800'
+  return colors[status] || 'bg-gray-50 text-gray-700 border-gray-100'
 }
 
 export function getTemperatureStatus(temp: number, min: number, max: number): {
@@ -68,7 +68,7 @@ export function getTemperatureStatus(temp: number, min: number, max: number): {
     return { status: 'good', isCompliant: true }
   }
   
-  const buffer = (max - min) * 0.2 // 20% buffer for warning
+  const buffer = (max - min) * 0.2
   if (temp >= min - buffer && temp <= max + buffer) {
     return { status: 'warning', isCompliant: false }
   }
