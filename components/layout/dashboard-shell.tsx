@@ -14,19 +14,16 @@ export function DashboardShell({ children }: DashboardShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-background dot-pattern flex">
-      {/* Desktop Sidebar */}
-      <div className="hidden md:block w-64 flex-shrink-0">
-        <Sidebar className="fixed inset-y-0 left-0 w-64 z-40" />
+    <div className="min-h-screen bg-background flex">
+      <div className="hidden md:block w-60 flex-shrink-0">
+        <Sidebar className="fixed inset-y-0 left-0 w-60 z-40" />
       </div>
 
-      {/* Mobile Sidebar Drawer */}
       <MobileSidebar
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
       />
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col min-h-screen min-w-0">
         <Header onMenuClick={() => setMobileMenuOpen(true)} />
         <StoreSelector />

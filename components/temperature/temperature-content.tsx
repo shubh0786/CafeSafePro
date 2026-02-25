@@ -126,7 +126,7 @@ export function TemperatureContent({
     <div className="space-y-6 sm:space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Temperature Monitoring</h1>
+          <h1 className="font-serif text-xl sm:text-2xl italic text-foreground">Temperature Monitoring</h1>
           <p className="text-muted-foreground mt-1">
             Record and monitor equipment temperatures for MPI compliance
           </p>
@@ -142,12 +142,10 @@ export function TemperatureContent({
 
         <TabsContent value="record" className="space-y-6">
           {Object.entries(equipmentByCategory).map(([category, items]) => (
-            <Card key={category} className="border-0 shadow-soft">
+            <Card key={category}>
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
-                  <div className="w-8 h-8 rounded-lg bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center">
-                    <Thermometer className="h-4 w-4 text-sky-500" />
-                  </div>
+                  <Thermometer className="h-4 w-4 text-muted-foreground" />
                   {categoryLabels[category] || category}
                 </CardTitle>
                 <CardDescription>
@@ -165,10 +163,10 @@ export function TemperatureContent({
                     return (
                       <div
                         key={item.id}
-                        className={`cursor-pointer rounded-xl border p-4 transition-all duration-200 hover:shadow-soft-md group ${
+                        className={`cursor-pointer rounded-md border p-4 ${
                           isChecked
                             ? 'border-emerald-200 bg-emerald-50/50 dark:bg-emerald-950/30'
-                            : 'border-border hover:border-border'
+                            : 'border-border'
                         }`}
                         onClick={() => openRecordDialog(item)}
                       >
@@ -183,13 +181,9 @@ export function TemperatureContent({
                             </p>
                           </div>
                           {isChecked ? (
-                            <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
-                              <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-                            </div>
+                            <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                           ) : (
-                            <div className="w-7 h-7 rounded-lg bg-muted flex items-center justify-center group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/50 transition-colors">
-                              <Plus className="h-4 w-4 text-muted-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
-                            </div>
+                            <Plus className="h-4 w-4 text-muted-foreground" />
                           )}
                         </div>
                         {lastRecord && (
@@ -225,7 +219,7 @@ export function TemperatureContent({
         </TabsContent>
 
         <TabsContent value="today">
-          <Card className="border-0 shadow-soft">
+          <Card>
             <CardHeader className="pb-4">
               <CardTitle className="text-base font-semibold text-foreground">Today&apos;s Records</CardTitle>
               <CardDescription>
@@ -235,9 +229,7 @@ export function TemperatureContent({
             <CardContent>
               {todayRecords.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
-                    <Thermometer className="h-6 w-6 text-muted-foreground" />
-                  </div>
+                  <Thermometer className="h-6 w-6 text-muted-foreground mx-auto mb-3" />
                   <p className="text-muted-foreground font-medium">No records yet today</p>
                 </div>
               ) : (
@@ -296,7 +288,7 @@ export function TemperatureContent({
         </TabsContent>
 
         <TabsContent value="history">
-          <Card className="border-0 shadow-soft">
+          <Card>
             <CardHeader className="pb-4">
               <CardTitle className="text-base font-semibold text-foreground">Recent History</CardTitle>
               <CardDescription>
@@ -358,7 +350,7 @@ export function TemperatureContent({
 
       {/* Record Temperature Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="rounded-2xl">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-lg font-semibold text-foreground">Record Temperature</DialogTitle>
             <DialogDescription>
@@ -396,7 +388,7 @@ export function TemperatureContent({
               />
             </div>
             {selectedEquipment && temperature && (
-              <div className="p-3.5 rounded-xl bg-muted/50">
+              <div className="p-3.5 rounded-md bg-muted/50">
                 {(() => {
                   const temp = parseFloat(temperature)
                   const { status } = getTemperatureStatus(
@@ -406,18 +398,14 @@ export function TemperatureContent({
                   )
                   return status === 'good' ? (
                     <div className="flex items-center gap-2.5 text-emerald-600">
-                      <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
-                        <CheckCircle className="h-4 w-4" />
-                      </div>
+                      <CheckCircle className="h-4 w-4" />
                       <span className="text-sm font-medium">
                         Temperature is within acceptable range
                       </span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2.5 text-red-600">
-                      <div className="w-7 h-7 rounded-lg bg-red-100 flex items-center justify-center">
-                        <AlertCircle className="h-4 w-4" />
-                      </div>
+                      <AlertCircle className="h-4 w-4" />
                       <span className="text-sm font-medium">
                         Temperature is outside acceptable range
                       </span>
@@ -431,11 +419,10 @@ export function TemperatureContent({
                 type="button"
                 variant="outline"
                 onClick={() => setDialogOpen(false)}
-                className="rounded-xl"
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isSubmitting} className="rounded-xl">
+              <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? 'Recording...' : 'Record Temperature'}
               </Button>
             </div>

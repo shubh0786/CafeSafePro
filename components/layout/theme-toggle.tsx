@@ -12,7 +12,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-9 h-9 rounded-xl bg-muted animate-pulse" />
+      <div className="w-9 h-9 rounded-md bg-muted animate-pulse" />
     )
   }
 
@@ -21,7 +21,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="relative p-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200"
+      className="relative p-2.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {isDark ? (

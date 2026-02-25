@@ -33,13 +33,10 @@ import {
 import { toast } from 'sonner'
 import { formatDate } from '@/lib/utils'
 import {
-  Package,
   Plus,
   Search,
   AlertCircle,
   CheckCircle,
-  Truck,
-  Calendar,
   Archive,
 } from 'lucide-react'
 import { addStockItem } from '@/app/actions/stock'
@@ -147,19 +144,19 @@ export function StockContent({
     <div className="space-y-6 sm:space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Stock & Traceability</h1>
+          <h1 className="font-serif text-xl sm:text-2xl italic text-foreground">Stock & Traceability</h1>
           <p className="text-muted-foreground mt-1">
             Track deliveries, batch numbers, and expiry dates for MPI compliance
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="rounded-xl">
+            <Button>
               <Plus className="mr-2 h-4 w-4" />
               Record Delivery
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-lg rounded-2xl">
+          <DialogContent className="max-w-lg">
             <DialogHeader>
               <DialogTitle>Record New Delivery</DialogTitle>
               <DialogDescription>
@@ -251,11 +248,10 @@ export function StockContent({
                   type="button"
                   variant="outline"
                   onClick={() => setDialogOpen(false)}
-                  className="rounded-xl"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting} className="rounded-xl">
+                <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? 'Adding...' : 'Add Stock Item'}
                 </Button>
               </div>
@@ -278,7 +274,7 @@ export function StockContent({
               {expiringSoon.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-3 bg-card rounded-xl border border-border"
+                  className="flex items-center justify-between p-3 bg-card rounded-md border border-border"
                 >
                   <div>
                     <p className="font-medium">{item.name}</p>
@@ -299,70 +295,40 @@ export function StockContent({
 
       {/* Stock Overview */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Items</p>
-                <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{stockItems.length}</div>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Package className="h-5 w-5 text-muted-foreground" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Items</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">{stockItems.length}</p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Active Stock</p>
-                <div className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">{activeItems.length}</div>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Active Stock</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-emerald-600 dark:text-emerald-400 mt-1">{activeItems.length}</p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Suppliers</p>
-                <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{suppliers.length}</div>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Truck className="h-5 w-5 text-muted-foreground" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Suppliers</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">{suppliers.length}</p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Expiring Soon</p>
-                <div
-                  className={`text-2xl sm:text-3xl font-bold mt-2 ${
-                    expiringSoon.length > 0 ? 'text-amber-600' : 'text-emerald-600 dark:text-emerald-400'
-                  }`}
-                >
-                  {expiringSoon.length}
-                </div>
-              </div>
-              <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ${
-                expiringSoon.length > 0 ? 'bg-amber-50 dark:bg-amber-950/50' : 'bg-emerald-50 dark:bg-emerald-950/50'
-              }`}>
-                <Calendar className={`h-5 w-5 ${expiringSoon.length > 0 ? 'text-amber-600' : 'text-emerald-600 dark:text-emerald-400'}`} />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Expiring Soon</p>
+            <p
+              className={`text-2xl sm:text-3xl font-semibold mt-1 ${
+                expiringSoon.length > 0 ? 'text-amber-600' : 'text-emerald-600 dark:text-emerald-400'
+              }`}
+            >
+              {expiringSoon.length}
+            </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Stock Items Table */}
-      <Card className="border-0 shadow-soft">
+      <Card>
         <CardHeader>
           <CardTitle>Stock Inventory</CardTitle>
           <CardDescription>View and manage all stock items</CardDescription>
@@ -428,9 +394,7 @@ function StockTable({ items }: { items: StockItem[] }) {
             {items.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center py-8">
-                  <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
-                    <Archive className="h-6 w-6 text-muted-foreground" />
-                  </div>
+                  <Archive className="h-6 w-6 text-muted-foreground mx-auto mb-3" />
                   <p className="text-muted-foreground font-medium">No stock items found</p>
                 </TableCell>
               </TableRow>

@@ -62,13 +62,13 @@ export default async function StoresPage() {
       <div className="space-y-6 sm:space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Store Management</h1>
+            <h1 className="font-serif text-xl sm:text-2xl italic text-foreground">Store Management</h1>
             <p className="text-muted-foreground mt-1">
               Manage your cafe locations and their settings
             </p>
           </div>
           {userRole === 'FRANCHISE_ADMIN' && (
-            <Button className="rounded-xl">
+            <Button>
               <Plus className="mr-2 h-4 w-4" />
               Add New Store
             </Button>
@@ -77,54 +77,34 @@ export default async function StoresPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Stores</p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{stores.length}</p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-foreground" />
-              </div>
+          <Card>
+            <CardContent className="p-4 sm:p-5">
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Stores</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">{stores.length}</p>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Active</p>
-                <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">
-                  {stores.filter((s) => s.isActive).length}
-                </p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-              </div>
+          <Card>
+            <CardContent className="p-4 sm:p-5">
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Active</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
+                {stores.filter((s) => s.isActive).length}
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Staff</p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
-                  {stores.reduce((acc, s) => acc + s._count.storeUsers, 0)}
-                </p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-sky-600 dark:text-sky-400" />
-              </div>
+          <Card>
+            <CardContent className="p-4 sm:p-5">
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Staff</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">
+                {stores.reduce((acc, s) => acc + s._count.storeUsers, 0)}
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
-            <CardContent className="p-4 sm:p-5 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Equipment</p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
-                  {stores.reduce((acc, s) => acc + s._count.equipment, 0)}
-                </p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Store className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-              </div>
+          <Card>
+            <CardContent className="p-4 sm:p-5">
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Equipment</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">
+                {stores.reduce((acc, s) => acc + s._count.equipment, 0)}
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -134,15 +114,13 @@ export default async function StoresPage() {
           {stores.length === 0 ? (
             <Card className="sm:col-span-2 lg:col-span-3">
               <CardContent className="py-12 text-center">
-                <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
-                  <Store className="h-6 w-6 text-muted-foreground" />
-                </div>
+                <Store className="h-6 w-6 text-muted-foreground mx-auto mb-3" />
                 <p className="text-muted-foreground font-medium">No stores found.</p>
               </CardContent>
             </Card>
           ) : (
             stores.map((store) => (
-              <Card key={store.id} className="border-0 shadow-soft hover:shadow-soft-md transition-all duration-300">
+              <Card key={store.id}>
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-lg">{store.name}</CardTitle>

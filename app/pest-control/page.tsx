@@ -5,7 +5,7 @@ import { DashboardShell } from '@/components/layout/dashboard-shell'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Bug, Plus, CheckCircle, AlertCircle, Calendar, ClipboardCheck } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function PestControlPage() {
@@ -20,12 +20,12 @@ export default async function PestControlPage() {
       <div className="space-y-6 sm:space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Pest Control</h1>
+            <h1 className="font-serif text-xl sm:text-2xl italic text-foreground">Pest Control</h1>
             <p className="text-muted-foreground mt-1">
               Track pest control inspections and contractor visits
             </p>
           </div>
-          <Button asChild className="rounded-xl">
+          <Button asChild>
             <Link href="/records">
               <Plus className="mr-2 h-4 w-4" />
               New Inspection Record
@@ -35,60 +35,39 @@ export default async function PestControlPage() {
 
         {/* Info Cards */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <Card>
             <CardContent className="p-4 sm:p-5">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Inspection Schedule</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">Weekly</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Required by MPI Food Control Plan
-                  </p>
-                </div>
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Calendar className="h-5 w-5 text-amber-500" />
-                </div>
-              </div>
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Inspection Schedule</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">Weekly</p>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+                Required by MPI Food Control Plan
+              </p>
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <Card>
             <CardContent className="p-4 sm:p-5">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Last Inspection</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">2 days ago</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    No issues found
-                  </p>
-                </div>
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <CheckCircle className="h-5 w-5 text-emerald-500" />
-                </div>
-              </div>
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Last Inspection</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">2 days ago</p>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+                No issues found
+              </p>
             </CardContent>
           </Card>
-          <Card className="col-span-2 lg:col-span-1 border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+          <Card className="col-span-2 lg:col-span-1">
             <CardContent className="p-4 sm:p-5">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Status</p>
-                  <div className="mt-2">
-                    <Badge className="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-border">Compliant</Badge>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    All pest control measures in place
-                  </p>
-                </div>
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <ClipboardCheck className="h-5 w-5 text-sky-500" />
-                </div>
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Status</p>
+              <div className="mt-1">
+                <Badge className="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-border">Compliant</Badge>
               </div>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+                All pest control measures in place
+              </p>
             </CardContent>
           </Card>
         </div>
 
         {/* Guidelines */}
-        <Card className="border-0 shadow-soft">
+        <Card>
           <CardHeader className="pb-4">
             <CardTitle className="text-base font-semibold text-foreground">MPI Pest Control Requirements</CardTitle>
             <CardDescription>
@@ -114,7 +93,7 @@ export default async function PestControlPage() {
                 desc: 'Maintain pest-proofing measures including sealed doors, intact screens, and proper waste management. Store food products off the floor.',
               },
             ].map((item) => (
-              <div key={item.title} className="p-4 rounded-xl bg-muted/50 space-y-1.5">
+              <div key={item.title} className="p-4 rounded-md bg-muted/50 space-y-1.5">
                 <h4 className="font-medium text-sm text-foreground">{item.title}</h4>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {item.desc}
@@ -126,12 +105,12 @@ export default async function PestControlPage() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button asChild variant="outline" className="rounded-xl border-border">
+          <Button asChild variant="outline">
             <Link href="/records?type=PEST_CONTROL">
               View Inspection Records
             </Link>
           </Button>
-          <Button asChild className="rounded-xl">
+          <Button asChild>
             <Link href="/records?type=PEST_CONTROL&create=true">
               <Plus className="mr-2 h-4 w-4" />
               Record Inspection

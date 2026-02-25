@@ -19,11 +19,8 @@ import {
   ClipboardList,
   CheckCircle2,
   Clock,
-  AlertCircle,
   Plus,
   User,
-  Calendar,
-  Sparkles,
 } from 'lucide-react'
 import { completeTask, createTask } from '@/app/actions/tasks'
 
@@ -161,7 +158,7 @@ export function TasksContent({
     <div className="space-y-6 sm:space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Daily Tasks</h1>
+          <h1 className="font-serif text-xl sm:text-2xl italic text-foreground">Daily Tasks</h1>
           <p className="text-muted-foreground mt-1">
             Manage opening, closing, and daily compliance tasks
           </p>
@@ -184,7 +181,7 @@ export function TasksContent({
               <Button
                 onClick={handleCreateFromSchedule}
                 disabled={!selectedSchedule || isCreating}
-                className="w-full sm:w-auto rounded-xl"
+                className="w-full sm:w-auto"
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Create Tasks
@@ -196,61 +193,33 @@ export function TasksContent({
 
       {/* Stats Overview */}
       <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Tasks</p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{tasks.length}</p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <ClipboardList className="h-5 w-5 text-muted-foreground" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Tasks</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">{tasks.length}</p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Pending</p>
-                <p className="text-2xl sm:text-3xl font-bold text-amber-600 mt-2">{pendingTasks.length}</p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Clock className="h-5 w-5 text-amber-500" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Pending</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-amber-600 mt-1">{pendingTasks.length}</p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Completed</p>
-                <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">{completedTasks.length}</p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Completed</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-emerald-600 dark:text-emerald-400 mt-1">{completedTasks.length}</p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Completion Rate</p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
-                  {tasks.length > 0
-                    ? Math.round((completedTasks.length / tasks.length) * 100)
-                    : 0}
-                  %
-                </p>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Sparkles className="h-5 w-5 text-violet-500" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Completion Rate</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">
+              {tasks.length > 0
+                ? Math.round((completedTasks.length / tasks.length) * 100)
+                : 0}
+              %
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -269,11 +238,9 @@ export function TasksContent({
 
         <TabsContent value="all" className="space-y-3">
           {tasks.length === 0 ? (
-            <Card className="border-0 shadow-soft">
+            <Card>
               <CardContent className="py-16 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-4">
-                  <ClipboardList className="h-7 w-7 text-muted-foreground" />
-                </div>
+                <ClipboardList className="h-7 w-7 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground font-medium">No tasks for today yet</p>
                 <p className="text-sm text-muted-foreground mt-1">
                   Select a template above to create tasks
@@ -295,11 +262,9 @@ export function TasksContent({
 
         <TabsContent value="pending" className="space-y-3">
           {pendingTasks.length === 0 ? (
-            <Card className="border-0 shadow-soft">
+            <Card>
               <CardContent className="py-16 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle2 className="h-7 w-7 text-emerald-500" />
-                </div>
+                <CheckCircle2 className="h-7 w-7 text-emerald-500 mx-auto mb-4" />
                 <p className="text-muted-foreground font-medium">All tasks completed! Great job!</p>
               </CardContent>
             </Card>
@@ -318,7 +283,7 @@ export function TasksContent({
 
         <TabsContent value="completed" className="space-y-3">
           {completedTasks.length === 0 ? (
-            <Card className="border-0 shadow-soft">
+            <Card>
               <CardContent className="py-16 text-center">
                 <p className="text-muted-foreground">No completed tasks yet</p>
               </CardContent>
@@ -358,7 +323,7 @@ function TaskCard({
   onComplete?: () => void
 }) {
   return (
-    <Card className={`border-0 shadow-soft hover:shadow-soft-md transition-all duration-200 ${task.isCompleted ? 'opacity-70' : ''}`}>
+    <Card className={task.isCompleted ? 'opacity-70' : ''}>
       <CardContent className="p-4">
         <div className="flex items-start gap-4">
           {onComplete && !task.isCompleted && (

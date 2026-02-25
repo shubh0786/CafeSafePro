@@ -190,19 +190,19 @@ export function RecordsContent({
     <div className="space-y-6 sm:space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Compliance Records</h1>
+          <h1 className="font-serif text-xl sm:text-2xl italic text-foreground">Compliance Records</h1>
           <p className="text-muted-foreground mt-1">
             Record cleaning, pest control, maintenance, and other compliance activities
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="rounded-xl">
+            <Button>
               <Plus className="mr-2 h-4 w-4" />
               New Record
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-lg rounded-2xl">
+          <DialogContent className="max-w-lg">
             <DialogHeader>
               <DialogTitle className="text-lg font-semibold text-foreground">Create New Record</DialogTitle>
               <DialogDescription>
@@ -250,7 +250,7 @@ export function RecordsContent({
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Additional observations or comments"
                   rows={3}
-                  className="rounded-xl border-border focus:border-emerald-400 focus:ring-emerald-400/20"
+                  className="border-border"
                 />
               </div>
 
@@ -259,11 +259,10 @@ export function RecordsContent({
                   type="button"
                   variant="outline"
                   onClick={() => setDialogOpen(false)}
-                  className="rounded-xl"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting || !selectedType} className="rounded-xl">
+                <Button type="submit" disabled={isSubmitting || !selectedType}>
                   {isSubmitting ? 'Creating...' : 'Create Record'}
                 </Button>
               </div>
@@ -277,10 +276,10 @@ export function RecordsContent({
         {recordTypes.map((type) => (
           <div
             key={type.value}
-            className="cursor-pointer rounded-xl border border-border p-5 text-center hover:shadow-soft-md hover:border-border transition-all duration-200 group"
+            className="cursor-pointer rounded-md border border-border p-5 text-center"
             onClick={() => openCreateDialog(type.value)}
           >
-            <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-200">{type.icon}</div>
+            <div className="text-3xl mb-2">{type.icon}</div>
             <p className="font-medium text-sm text-foreground">{type.label}</p>
           </div>
         ))}
@@ -291,9 +290,7 @@ export function RecordsContent({
         <Card className="border-red-100 bg-red-50/50 dark:bg-red-950/30 shadow-none">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-red-800 dark:text-red-400">
-              <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
-                <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
-              </div>
+              <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
               Pending Corrective Actions ({correctiveActions.length})
             </CardTitle>
           </CardHeader>
@@ -302,7 +299,7 @@ export function RecordsContent({
               {correctiveActions.slice(0, 3).map((action) => (
                 <div
                   key={action.id}
-                  className="flex items-center justify-between p-3.5 bg-background rounded-xl border border-red-100"
+                  className="flex items-center justify-between p-3.5 bg-background rounded-md border border-red-100"
                 >
                   <div>
                     <p className="font-medium text-sm text-red-900 dark:text-red-400">
@@ -325,7 +322,7 @@ export function RecordsContent({
       )}
 
       {/* Records Table */}
-      <Card className="border-0 shadow-soft">
+      <Card>
         <CardHeader className="pb-4">
           <CardTitle className="text-base font-semibold text-foreground">Recent Records</CardTitle>
           <CardDescription>View and filter all compliance records</CardDescription>
@@ -375,9 +372,7 @@ export function RecordsContent({
                   {filteredRecords.length === 0 ? (
                     <TableRow>
                       <TableCell colSpan={5} className="text-center py-12">
-                        <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mx-auto mb-3">
-                          <FileText className="h-6 w-6 text-muted-foreground" />
-                        </div>
+                        <FileText className="h-6 w-6 text-muted-foreground mx-auto mb-3" />
                         <p className="text-muted-foreground font-medium">No records found</p>
                       </TableCell>
                     </TableRow>

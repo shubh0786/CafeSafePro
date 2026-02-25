@@ -37,7 +37,7 @@ export function StoreSelector() {
             }
           }}
         >
-          <SelectTrigger className="w-full sm:w-[280px] h-9 rounded-xl text-sm">
+          <SelectTrigger className="w-full sm:w-[280px] h-9 text-sm">
             <SelectValue placeholder="Select a store" />
           </SelectTrigger>
           <SelectContent>

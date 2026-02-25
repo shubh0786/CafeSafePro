@@ -24,7 +24,6 @@ import {
 import { toast } from 'sonner'
 import { formatDate } from '@/lib/utils'
 import {
-  Wrench,
   Plus,
   Thermometer,
   AlertCircle,
@@ -153,7 +152,7 @@ export function EquipmentContent({
     <div className="space-y-6 sm:space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Equipment</h1>
+          <h1 className="font-serif text-xl sm:text-2xl italic text-foreground">Equipment</h1>
           <p className="text-muted-foreground mt-1">
             Manage equipment for temperature monitoring and maintenance tracking
           </p>
@@ -161,12 +160,12 @@ export function EquipmentContent({
         {canAddEquipment && (
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="rounded-xl">
+              <Button>
                 <Plus className="mr-2 h-4 w-4" />
                 Add Equipment
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-lg rounded-2xl">
+            <DialogContent className="max-w-lg">
               <DialogHeader>
                 <DialogTitle>Add New Equipment</DialogTitle>
                 <DialogDescription>
@@ -250,12 +249,11 @@ export function EquipmentContent({
                   <Button
                     type="button"
                     variant="outline"
-                    className="rounded-xl"
                     onClick={() => setDialogOpen(false)}
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={isSubmitting} className="rounded-xl">
+                  <Button type="submit" disabled={isSubmitting}>
                     {isSubmitting ? 'Adding...' : 'Add Equipment'}
                   </Button>
                 </div>
@@ -279,7 +277,7 @@ export function EquipmentContent({
               {needsService.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-3 bg-card rounded-xl border border-border"
+                  className="flex items-center justify-between p-3 bg-card rounded-md border border-border"
                 >
                   <div>
                     <p className="font-medium">{item.name}</p>
@@ -299,68 +297,38 @@ export function EquipmentContent({
 
       {/* Equipment Overview */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Equipment</p>
-                <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">{equipment.length}</div>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Wrench className="h-4 w-4 text-foreground" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Equipment</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">{equipment.length}</p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Active</p>
-                <div className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">
-                  {equipment.filter((e) => e.isActive).length}
-                </div>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Active</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
+              {equipment.filter((e) => e.isActive).length}
+            </p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Needs Service</p>
-                <div
-                  className={`text-2xl sm:text-3xl font-bold mt-2 ${
-                    needsService.length > 0 ? 'text-amber-600' : 'text-emerald-600 dark:text-emerald-400'
-                  }`}
-                >
-                  {needsService.length}
-                </div>
-              </div>
-              <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ${
-                needsService.length > 0 ? 'bg-amber-50 dark:bg-amber-950/50' : 'bg-emerald-50 dark:bg-emerald-950/50'
-              }`}>
-                <Clock className={`h-4 w-4 ${needsService.length > 0 ? 'text-amber-600' : 'text-emerald-600 dark:text-emerald-400'}`} />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Needs Service</p>
+            <p
+              className={`text-2xl sm:text-3xl font-semibold mt-1 ${
+                needsService.length > 0 ? 'text-amber-600' : 'text-emerald-600 dark:text-emerald-400'
+              }`}
+            >
+              {needsService.length}
+            </p>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-soft group hover:shadow-soft-md transition-all duration-300">
+        <Card>
           <CardContent className="p-4 sm:p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Temp Monitored</p>
-                <div className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
-                  {equipment.filter((e) => e.minTemp !== null && e.maxTemp !== null).length}
-                </div>
-              </div>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-muted flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Thermometer className="h-4 w-4 text-foreground" />
-              </div>
-            </div>
+            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Temp Monitored</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-foreground mt-1">
+              {equipment.filter((e) => e.minTemp !== null && e.maxTemp !== null).length}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -368,7 +336,7 @@ export function EquipmentContent({
       {/* Equipment by Category */}
       <div className="space-y-6 sm:space-y-8">
         {Object.entries(equipmentByCategory).map(([category, items]) => (
-          <Card key={category} className="border-0 shadow-soft">
+          <Card key={category}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 {categoryIcons[category]}
@@ -387,7 +355,7 @@ export function EquipmentContent({
                     new Date(item.nextService) <= thirtyDaysFromNow
 
                   return (
-                    <Card key={item.id} className={`border-border hover:shadow-soft-md transition-all duration-200 ${item.isActive ? '' : 'opacity-50'}`}>
+                    <Card key={item.id} className={item.isActive ? '' : 'opacity-50'}>
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between">
                           <div>

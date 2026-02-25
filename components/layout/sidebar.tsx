@@ -17,9 +17,7 @@ import {
   Building2,
   LogOut,
   Store,
-  ShieldCheck,
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { signOut } from 'next-auth/react'
 
 interface NavItem {
@@ -30,78 +28,18 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
-    icon: <LayoutDashboard className="h-[18px] w-[18px]" />,
-    roles: ['STAFF', 'MANAGER', 'OWNER', 'FRANCHISE_ADMIN'],
-  },
-  {
-    title: 'Daily Tasks',
-    href: '/tasks',
-    icon: <ClipboardList className="h-[18px] w-[18px]" />,
-    roles: ['STAFF', 'MANAGER'],
-  },
-  {
-    title: 'Temperature',
-    href: '/temperature',
-    icon: <Thermometer className="h-[18px] w-[18px]" />,
-    roles: ['STAFF', 'MANAGER'],
-  },
-  {
-    title: 'Records',
-    href: '/records',
-    icon: <FileText className="h-[18px] w-[18px]" />,
-    roles: ['STAFF', 'MANAGER'],
-  },
-  {
-    title: 'Stock & Traceability',
-    href: '/stock',
-    icon: <Package className="h-[18px] w-[18px]" />,
-    roles: ['STAFF', 'MANAGER'],
-  },
-  {
-    title: 'Pest Control',
-    href: '/pest-control',
-    icon: <Bug className="h-[18px] w-[18px]" />,
-    roles: ['STAFF', 'MANAGER'],
-  },
-  {
-    title: 'Equipment',
-    href: '/equipment',
-    icon: <Wrench className="h-[18px] w-[18px]" />,
-    roles: ['MANAGER', 'OWNER'],
-  },
-  {
-    title: 'Staff',
-    href: '/staff',
-    icon: <Users className="h-[18px] w-[18px]" />,
-    roles: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'],
-  },
-  {
-    title: 'Reports',
-    href: '/reports',
-    icon: <FileText className="h-[18px] w-[18px]" />,
-    roles: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'],
-  },
-  {
-    title: 'Stores',
-    href: '/stores',
-    icon: <Store className="h-[18px] w-[18px]" />,
-    roles: ['OWNER', 'FRANCHISE_ADMIN'],
-  },
-  {
-    title: 'Settings',
-    href: '/settings',
-    icon: <Settings className="h-[18px] w-[18px]" />,
-    roles: ['OWNER', 'FRANCHISE_ADMIN'],
-  },
-  {
-    title: 'Franchise',
-    href: '/franchise',
-    icon: <Building2 className="h-[18px] w-[18px]" />,
-    roles: ['FRANCHISE_ADMIN'],
-  },
+  { title: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-4 w-4" />, roles: ['STAFF', 'MANAGER', 'OWNER', 'FRANCHISE_ADMIN'] },
+  { title: 'Daily Tasks', href: '/tasks', icon: <ClipboardList className="h-4 w-4" />, roles: ['STAFF', 'MANAGER'] },
+  { title: 'Temperature', href: '/temperature', icon: <Thermometer className="h-4 w-4" />, roles: ['STAFF', 'MANAGER'] },
+  { title: 'Records', href: '/records', icon: <FileText className="h-4 w-4" />, roles: ['STAFF', 'MANAGER'] },
+  { title: 'Stock & Traceability', href: '/stock', icon: <Package className="h-4 w-4" />, roles: ['STAFF', 'MANAGER'] },
+  { title: 'Pest Control', href: '/pest-control', icon: <Bug className="h-4 w-4" />, roles: ['STAFF', 'MANAGER'] },
+  { title: 'Equipment', href: '/equipment', icon: <Wrench className="h-4 w-4" />, roles: ['MANAGER', 'OWNER'] },
+  { title: 'Staff', href: '/staff', icon: <Users className="h-4 w-4" />, roles: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'] },
+  { title: 'Reports', href: '/reports', icon: <FileText className="h-4 w-4" />, roles: ['MANAGER', 'OWNER', 'FRANCHISE_ADMIN'] },
+  { title: 'Stores', href: '/stores', icon: <Store className="h-4 w-4" />, roles: ['OWNER', 'FRANCHISE_ADMIN'] },
+  { title: 'Settings', href: '/settings', icon: <Settings className="h-4 w-4" />, roles: ['OWNER', 'FRANCHISE_ADMIN'] },
+  { title: 'Franchise', href: '/franchise', icon: <Building2 className="h-4 w-4" />, roles: ['FRANCHISE_ADMIN'] },
 ]
 
 interface SidebarProps {
@@ -119,31 +57,21 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
   )
 
   return (
-    <div
-      className={cn(
-        'flex flex-col h-full bg-[hsl(222,47%,15%)] text-white',
-        className
-      )}
-    >
+    <div className={cn('flex flex-col h-full bg-[hsl(228,45%,13%)]', className)}>
       {/* Logo */}
-      <div className="p-5 pb-4">
-        <Link href="/dashboard" className="flex items-center gap-3 group" onClick={onNavigate}>
-          <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
-            <ShieldCheck className="h-5 w-5 text-[hsl(222,47%,15%)]" />
-          </div>
-          <div>
-            <span className="font-bold text-[15px] text-white tracking-tight">
-              In Control
-            </span>
-            <span className="block text-[10px] text-amber-400 font-medium -mt-0.5">
-              MPI Compliance
-            </span>
-          </div>
+      <div className="px-6 py-6">
+        <Link href="/dashboard" className="block" onClick={onNavigate}>
+          <span className="font-serif text-xl text-white tracking-wide italic">
+            In Control
+          </span>
+          <span className="block text-[11px] text-white/40 tracking-[0.15em] uppercase mt-0.5">
+            MPI Compliance
+          </span>
         </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-1 space-y-0.5 overflow-y-auto">
+      <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
         {filteredNavItems.map((item) => {
           const isActive = pathname === item.href
           return (
@@ -152,21 +80,13 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 relative group',
+                'flex items-center gap-3 px-3 py-2.5 rounded-md text-[13px] font-medium transition-colors duration-150',
                 isActive
-                  ? 'bg-white/10 text-amber-400'
-                  : 'text-white/60 hover:bg-white/5 hover:text-white'
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/50 hover:text-white hover:bg-white/5'
               )}
             >
-              {isActive && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-amber-400 rounded-r-full" />
-              )}
-              <span
-                className={cn(
-                  'transition-colors duration-200',
-                  isActive ? 'text-amber-400' : 'text-white/40 group-hover:text-white/70'
-                )}
-              >
+              <span className={isActive ? 'text-white' : 'text-white/40'}>
                 {item.icon}
               </span>
               {item.title}
@@ -176,15 +96,14 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
       </nav>
 
       {/* Sign Out */}
-      <div className="p-3 border-t border-white/10">
-        <Button
-          variant="ghost"
-          className="w-full justify-start text-white/40 hover:text-red-400 hover:bg-red-500/10 rounded-xl h-10 text-[13px] font-medium transition-all duration-200"
+      <div className="px-3 py-4 border-t border-white/10">
+        <button
+          className="flex items-center gap-3 px-3 py-2.5 rounded-md text-[13px] font-medium text-white/40 hover:text-white/70 transition-colors duration-150 w-full"
           onClick={() => signOut({ callbackUrl: '/' })}
         >
-          <LogOut className="h-[18px] w-[18px] mr-2.5" />
+          <LogOut className="h-4 w-4" />
           Sign Out
-        </Button>
+        </button>
       </div>
     </div>
   )
